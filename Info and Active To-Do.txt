@@ -1,14 +1,15 @@
-Current Development Pipeline (Updated 26/02/25 @ 9:27pm):
+Current Development Pipeline (Updated 03/03/25 @ 10:22am):
 IN NO PARTICULAR ORDER
-- Limit character movements to the confines of the map.
-    - Limit number of tiles over which character can move to a predetermined number (an amount corresponding to the number of development points allocated to movement for that turn).
+- Implementing turn-based functionality.
+- Limit number of tiles over which character can move to a predetermined number (an amount corresponding to the number of development points allocated to movement for that turn).
+- Reconfigure movement system such that Colliders and RigidBodies are used in place of arbitrary coordinate bounds.
 - Revise textures (currently these are just placeholders).
 - Implement sorting layer and texture mapping for settlements.
 - Integrate menus and UI components with basic movement mechanics (Kayla/Liam J we can discuss about how to merge these as needed).
-    - Following integrating these, specifying the number of players, and then instantiating a corresponding number of instances of the Player prefab (one for each player).
-- Add some additional editor data to the Player GameObject for development points and other related data fields.
 
-Resources Used So Far (Updated: 26/02/25 @ 9:27pm):
+Resources Used So Far (Updated: 03/03/25 @ 10:22am):
 - Tutorial Series for TileMaps, textures, and initialization: https://www.youtube.com/watch?v=YzbbE0ySD54&list=PLvdaHZw6zzmt94YFtnfzTLtgkyZlNh9go
     - #1, #2, and (to a more limited extent) #4 were particularly useful (have yet to finish the others).
 - Tile-based movement: https://www.youtube.com/watch?v=mbzXIOKZurA
+- Turn-based mechanics: https://www.youtube.com/watch?v=f5pm29yhaTs
+    - I (Liam T) haven't watched this video yet, but given it's tile map style, it may be a helpful resource for turn-based mechanisms.
