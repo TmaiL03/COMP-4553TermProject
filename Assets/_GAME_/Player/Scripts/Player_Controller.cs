@@ -95,6 +95,11 @@ public class Player_Controller : MonoBehaviour
 
     }
 
+    public void addScore(int amount)
+    {
+        victoryPoints += amount;
+    }
+
     #endregion 
 
 }

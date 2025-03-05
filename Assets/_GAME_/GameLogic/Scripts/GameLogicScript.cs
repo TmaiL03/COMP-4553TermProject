@@ -7,6 +7,8 @@ public class GameLogicScript : MonoBehaviour
     [Header("Game Settings")]
     public int NumberOfPlayers;
 
+    public int NumberOfResources = 3;
+
     void Awake()
     {
         NumberOfPlayers = MainMenu.playerCount;
