@@ -6,7 +6,7 @@ using TMPro;
 public class MainMenu : MonoBehaviour
 {
     public TMP_Dropdown playerCountDropdown;
-    public static int playerCount = 3;
+    public static int playerCount = 2;
 
     private void Start()
     {

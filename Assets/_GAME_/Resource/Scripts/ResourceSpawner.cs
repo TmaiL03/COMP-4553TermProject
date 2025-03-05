@@ -13,12 +13,14 @@ public class ResourceSpawner : MonoBehaviour
     // Reference to GameLogic GameObject.
     [SerializeField] GameObject logic;
 
+    int numberOfResources;
+
     // Start is called before the first frame update
     void Start()
     {
         // Obtaining reference to GameLogicScript.cs, then getting number of players.
         GameLogicScript logicScript = logic.GetComponent<GameLogicScript>();
-        int numberOfResources = logicScript.NumberOfResources;
+        numberOfResources = logicScript.NumberOfResources;
 
         // Spawning in the corresponding number of Player GameObjects.
         for (int i = 0; i < numberOfResources; i++)
@@ -37,10 +39,8 @@ public class ResourceSpawner : MonoBehaviour
     // Instantiates a new Player GameObject.
     public void spawnResource()
     {
-
         // Instantiating Player GameObject, renaming to distinguish instantiations.
         GameObject rsrc = Instantiate(resource, findLocation(), transform.rotation);
-
     }
 
     Vector3 findLocation()

@@ -27,16 +27,16 @@ public class ResourceController : MonoBehaviour
         if (!alreadyTouched)
         {
             alreadyTouched = true;
-        }
-        Player_Controller playerController = other.GetComponent<Player_Controller>();
+            Player_Controller playerController = other.GetComponent<Player_Controller>();
 
-        if (playerController != null)
-        {
-            // Increment the player's score
-            playerController.addScore(worth);
+            if (playerController != null)
+            {
+                // Increment the player's score
+                playerController.addScore(worth);
 
+            }
+            resourceSpawner.spawnResource();
+            Destroy(gameObject);
         }
-        resourceSpawner.spawnResource();
-        Destroy(gameObject);
     }
 }
