@@ -41,10 +41,10 @@ public class PlayerSpawner : MonoBehaviour
     void spawnPlayer(string name) {
 
         // Arbitrary map bounds so player only generates on a tile on screen.
-        int minX = -11;
-        int maxX = 10;
-        int minY = -4;
-        int maxY = 3;
+        float minX = -10.5f;
+        float maxX = 10.5f;
+        float minY = -3.5f;
+        float maxY = 3.5f;
         
         // Instantiating Player GameObject, renaming to distinguish instantiations.
         GameObject plyr = Instantiate(player, new Vector3(Random.Range(minX, maxX) + CENTRE_OFFSET, Random.Range(minY, maxY) + CENTRE_OFFSET, 0f), transform.rotation);
