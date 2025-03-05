@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [SelectionBase]
 public class Player_Controller : MonoBehaviour
 {
-
     #region Editor Data
 
     [Header("Player Inventory")]
@@ -25,7 +25,6 @@ public class Player_Controller : MonoBehaviour
 
         // Moving movePoint reference outside of Player GameObject (was nested for organizational purposes).
         movePoint.parent = null;
-
     }
 
     #region Internal Data
@@ -93,6 +92,12 @@ public class Player_Controller : MonoBehaviour
 
         }
 
+    }
+
+
+    public void addScore(int amount)
+    {
+        victoryPoints += amount;
     }
 
     #endregion 
