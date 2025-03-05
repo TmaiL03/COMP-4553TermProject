@@ -10,7 +10,7 @@ public class Player_Controller : MonoBehaviour
 
     [Header("Player Inventory")]
     [SerializeField] int victoryPoints = 0;
-    [SerializeField] int developmentPoints = 0;
+    [SerializeField] int developmentPoints = 5;
 
     [Header("Movement Attributes")]
     [SerializeField] float _moveSpeed = 5f;
@@ -21,17 +21,36 @@ public class Player_Controller : MonoBehaviour
 
     #endregion
 
+    
+
+    /*
+    *       THE HARDCODING MUST BE REMOVED
+    */
+
+    #region De-hardcode this!
+    int numberOfPlayers = 3;
+
+    #endregion
+
     private void Start() {
 
         // Moving movePoint reference outside of Player GameObject (was nested for organizational purposes).
         movePoint.parent = null;
+        developmentPoints = 5;
 
     }
+
+    private int playing = 0;
 
     #region Internal Data
 
     // Prefixed "_" denotes private/protected field to this class.
     private Vector2 _moveDir = Vector2.zero;
+
+    
+    public int playerID; //ID management
+    public void setPlayerID(int i) { playerID = i;}
+    //private bool restoredDevPoints = false;
 
     #endregion
     
@@ -71,16 +90,22 @@ public class Player_Controller : MonoBehaviour
     // Called every frame.
     private void Update() {
 
+        if(playing != playerID)
+        {
+            developmentPoints = 5;
+        }
+
         // Move player character position to position of movePoint.
         transform.position = Vector3.MoveTowards(transform.position, movePoint.position, _moveSpeed * Time.deltaTime);
 
         // Once character has successfully moved to movePoint (and movePoint is at valid position), accept further input.
-        if(Vector3.Distance(transform.position, movePoint.position) == 0f && IsValidPosition()) {
+        if(Vector3.Distance(transform.position, movePoint.position) == 0f && IsValidPosition() && developmentPoints > 0 && (playing == playerID)) {
 
             // If horizontal movement is detected.
-            if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f) {
+            if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f ) {
 
                 movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
+                developmentPoints--;
 
             }
 
@@ -88,9 +113,17 @@ public class Player_Controller : MonoBehaviour
             if(Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f) {
 
                 movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
+                developmentPoints--;
 
             }
 
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            //Debug.Log(playerID);
+            playing += 1;
+            playing = playing % numberOfPlayers; //This assumes that there will always be four players
         }
 
     }

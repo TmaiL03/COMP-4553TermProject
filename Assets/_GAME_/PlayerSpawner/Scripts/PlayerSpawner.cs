@@ -13,6 +13,10 @@ public class PlayerSpawner : MonoBehaviour
     // Reference to GameLogic GameObject.
     [SerializeField] GameObject logic;
 
+
+    //This integer determines which player can currently move
+    //public int playing = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +30,7 @@ public class PlayerSpawner : MonoBehaviour
         for(int i = 0; i < numberOfPlayers; i++) {
             
             name = "Player " + (i + 1);
-            spawnPlayer(name);
+            spawnPlayer(name, i);
             
         }
     }
@@ -38,7 +42,7 @@ public class PlayerSpawner : MonoBehaviour
     }
 
     // Instantiates a new Player GameObject.
-    void spawnPlayer(string name) {
+    void spawnPlayer(string name, int i) {
 
         // Arbitrary map bounds so player only generates on a tile on screen.
         int minX = -11;
@@ -49,6 +53,7 @@ public class PlayerSpawner : MonoBehaviour
         // Instantiating Player GameObject, renaming to distinguish instantiations.
         GameObject plyr = Instantiate(player, new Vector3(Random.Range(minX, maxX) + CENTRE_OFFSET, Random.Range(minY, maxY) + CENTRE_OFFSET, 0f), transform.rotation);
         plyr.name = name;
+        plyr.GetComponent<Player_Controller>().setPlayerID(i);
 
     }
 }

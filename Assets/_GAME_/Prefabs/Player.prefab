@@ -196,6 +196,7 @@ MonoBehaviour:
   _moveSpeed: 5
   _rb: {fileID: 1442737686074605870}
   movePoint: {fileID: 1442737686086497137}
+  playerID: 0
 --- !u!61 &2244217033625604090
 BoxCollider2D:
   m_ObjectHideFlags: 0
