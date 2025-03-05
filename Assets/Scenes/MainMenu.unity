@@ -1873,7 +1873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59f2e119938a8d9498676808e90e7066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCountDropdown: {fileID: 0}
+  playerCountDropdown: {fileID: 1836520460}
 --- !u!1 &1292620799
 GameObject:
   m_ObjectHideFlags: 0
