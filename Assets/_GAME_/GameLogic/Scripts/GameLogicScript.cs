@@ -5,6 +5,11 @@ using UnityEngine;
 public class GameLogicScript : MonoBehaviour
 {
     [Header("Game Settings")]
-    public int NumberOfPlayers = 4;
+    public int NumberOfPlayers;
 
+    void Awake()
+    {
+        NumberOfPlayers = MainMenu.playerCount;
+        Debug.Log("Number of Players Set to: " + NumberOfPlayers);
+    }
 }
