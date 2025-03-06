@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 [SelectionBase]
 public class Player_Controller : MonoBehaviour
@@ -9,7 +10,7 @@ public class Player_Controller : MonoBehaviour
     #region Editor Data
 
     [Header("Player Inventory")]
-    [SerializeField] int victoryPoints = 0;
+    [SerializeField] public int victoryPoints = 0;
     [SerializeField] int developmentPoints = 0;
 
     [Header("Movement Attributes")]
@@ -19,12 +20,31 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] Rigidbody2D _rb;
     [SerializeField] Transform movePoint;
 
+    private PlayerCurrency playerCurrencyUI;
+
     #endregion
 
     private void Start() {
 
         // Moving movePoint reference outside of Player GameObject (was nested for organizational purposes).
         movePoint.parent = null;
+
+        playerCurrencyUI = FindObjectOfType<PlayerCurrency>();
+
+        if (playerCurrencyUI == null)
+        {
+            Debug.LogError("PlayerCurrency script not found in scene!");
+        }
+
+        UpdateCurrencyUI();
+    }
+
+    private void UpdateCurrencyUI()
+    {
+        if (playerCurrencyUI != null)
+        {
+            playerCurrencyUI.UpdateCurrencyUI(victoryPoints);
+        }
     }
 
     #region Internal Data
@@ -97,6 +117,7 @@ public class Player_Controller : MonoBehaviour
     public void addScore(int amount)
     {
         victoryPoints += amount;
+        UpdateCurrencyUI();
     }
 
     #endregion 

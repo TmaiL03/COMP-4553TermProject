@@ -7,9 +7,23 @@ using UnityEngine.UI;
 public class PlayerCurrency : MonoBehaviour
 {
     public TextMeshProUGUI coinText;
+    private Player_Controller playerController;
 
-    public void SetCurrency(Player player)
+    private void Start()
     {
-        coinText.text = "Coins: " + player.playerCurrency.ToString();
+        playerController = FindObjectOfType<Player_Controller>();
+
+        if (playerController == null)
+        {
+            Debug.LogError("Player_Controller not found in the scene!");
+            return;
+        }
+
+        UpdateCurrencyUI(playerController.victoryPoints);
+    }
+
+    public void UpdateCurrencyUI(int amount)
+    {
+        coinText.text = "Coins: " + amount.ToString();
     }
 }
