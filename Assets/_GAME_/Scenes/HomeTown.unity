@@ -597,6 +597,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 340bbd915ef0dc249869a3e4f758b3a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NumberOfPlayers: 0
+  GridMap: {fileID: 0}
+  TileList: []
+  NumberOfResources: 3
 --- !u!114 &525649500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,12 +614,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTileMap: {fileID: 794529655}
-  newTile: {fileID: 11400000, guid: 760302ad33d305642a6028b5e5e1949e, type: 2}
   TileList:
   - {fileID: 11400000, guid: ee1b93028d41ad14b8fc5c7af6088704, type: 2}
   - {fileID: 11400000, guid: ae5f0fa15de151147b2072347e40f03a, type: 2}
-  NumberOfPlayers: 4
-  NumberOfResources: 3
 --- !u!1 &545782688
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,7 +678,7 @@ Transform:
   m_GameObject: {fileID: 560030431}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.129, y: -0.0044, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2428,7 +2429,7 @@ Transform:
   m_GameObject: {fileID: 794529652}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.12, y: -0.09, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4448,7 +4449,7 @@ Transform:
   m_GameObject: {fileID: 1890201284}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.413317, y: -0.100954175, z: 0.09455596}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

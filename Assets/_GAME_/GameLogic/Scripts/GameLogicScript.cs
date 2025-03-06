@@ -21,7 +21,6 @@ public class GameLogicScript : MonoBehaviour
         NumberOfPlayers = MainMenu.playerCount;
         Debug.Log("Number of Players Set to: " + NumberOfPlayers);
 
-
     }
 
     void Start() {
