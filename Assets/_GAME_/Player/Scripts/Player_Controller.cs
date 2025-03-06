@@ -28,7 +28,7 @@ public class Player_Controller : MonoBehaviour
     */
 
     #region De-hardcode this!
-    int numberOfPlayers = 3;
+    int numberOfPlayers = 2;
 
     #endregion
 
