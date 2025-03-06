@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [SelectionBase]
 public class Player_Controller : MonoBehaviour
 {
-
     #region Editor Data
 
     [Header("Player Inventory")]
@@ -113,7 +113,6 @@ public class Player_Controller : MonoBehaviour
             if(Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f) {
 
                 movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
-                developmentPoints--;
 
             }
 
@@ -126,6 +125,18 @@ public class Player_Controller : MonoBehaviour
             playing = playing % numberOfPlayers; //This assumes that there will always be four players
         }
 
+    }
+
+
+    public void addScore(int amount)
+    {
+        victoryPoints += amount;
+    }
+
+
+    public void addScore(int amount)
+    {
+        victoryPoints += amount;
     }
 
     #endregion 
