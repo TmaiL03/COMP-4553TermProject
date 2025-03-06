@@ -5,6 +5,7 @@ using UnityEngine;
 public class ResourceController : MonoBehaviour
 {
     int worth = 1;
+    bool alreadyTouched = false;
     ResourceSpawner resourceSpawner;
     // Start is called before the first frame update
 
@@ -23,16 +24,19 @@ public class ResourceController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Player_Controller playerController = other.GetComponent<Player_Controller>();
-
-        if (playerController != null)
+        if (!alreadyTouched)
         {
-            // Increment the player's score
-            playerController.addScore(worth);
+            alreadyTouched = true;
+            Player_Controller playerController = other.GetComponent<Player_Controller>();
 
-            // Destroy (delete) this resource
+            if (playerController != null)
+            {
+                // Increment the player's score
+                playerController.addScore(worth);
+
+            }
+            resourceSpawner.spawnResource();
+            Destroy(gameObject);
         }
-        resourceSpawner.spawnResource();
-        Destroy(gameObject);
     }
 }
