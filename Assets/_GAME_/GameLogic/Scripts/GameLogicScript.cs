@@ -7,7 +7,7 @@ public class GameLogicScript : MonoBehaviour
 {
     [Header("Game Settings")]
     // Used to specify the number of players participating in the game.
-    public int NumberOfPlayers;
+    public int NumberOfPlayers = 3;
     // Reference to the TileMap.
     public Tilemap GridMap;
     // Reference list containing all permissible Tile types.
