@@ -21,6 +21,8 @@ public class TurnManager : MonoBehaviour
 
         players = new List<Player_Controller>(FindObjectsOfType<Player_Controller>());
 
+        players.Sort((player1, player2) => player1.playerNumber.CompareTo(player2.playerNumber));
+
         if (players.Count > 0)
         {
             Player_Controller playerOne = players.Find(player => player.playerNumber == 1);
@@ -57,7 +59,6 @@ public class TurnManager : MonoBehaviour
         players[currentPlayerIndex].turn = true;
 
         players[currentPlayerIndex].UpdateCurrencyUI();
-
         UpdateTurnUI();
     }
 
