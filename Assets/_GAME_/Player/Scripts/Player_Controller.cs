@@ -9,6 +9,10 @@ public class Player_Controller : MonoBehaviour
 {
     #region Editor Data
 
+    [Header("Player Info")]
+    [SerializeField] public int playerNumber;
+    [SerializeField] public bool turn;
+
     [Header("Player Inventory")]
     [SerializeField] public int victoryPoints = 0;
     [SerializeField] int developmentPoints = 0;
@@ -21,6 +25,7 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] Transform movePoint;
 
     private PlayerCurrency playerCurrencyUI;
+    private PlayerNumber playerNumberUI;
 
     #endregion
 
@@ -30,20 +35,24 @@ public class Player_Controller : MonoBehaviour
         movePoint.parent = null;
 
         playerCurrencyUI = FindObjectOfType<PlayerCurrency>();
-
-        if (playerCurrencyUI == null)
-        {
-            Debug.LogError("PlayerCurrency script not found in scene!");
-        }
+        playerNumberUI = FindObjectOfType<PlayerNumber>();
 
         UpdateCurrencyUI();
+        UpdatePlayerNumberUI();
     }
 
-    private void UpdateCurrencyUI()
+    public void UpdateCurrencyUI()
     {
         if (playerCurrencyUI != null)
         {
             playerCurrencyUI.UpdateCurrencyUI(victoryPoints);
+        }
+    }
+    public void UpdatePlayerNumberUI()
+    {
+        if (playerNumberUI != null)
+        {
+            playerNumberUI.UpdatePlayerNumberUI(playerNumber);
         }
     }
 
@@ -90,26 +99,31 @@ public class Player_Controller : MonoBehaviour
     // Called every frame.
     private void Update() {
 
-        // Move player character position to position of movePoint.
-        transform.position = Vector3.MoveTowards(transform.position, movePoint.position, _moveSpeed * Time.deltaTime);
+        if (turn)
+        {
+            // Move player character position to position of movePoint.
+            transform.position = Vector3.MoveTowards(transform.position, movePoint.position, _moveSpeed * Time.deltaTime);
 
-        // Once character has successfully moved to movePoint (and movePoint is at valid position), accept further input.
-        if(Vector3.Distance(transform.position, movePoint.position) == 0f && IsValidPosition()) {
+            // Once character has successfully moved to movePoint (and movePoint is at valid position), accept further input.
+            if (Vector3.Distance(transform.position, movePoint.position) == 0f && IsValidPosition())
+            {
 
-            // If horizontal movement is detected.
-            if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f) {
+                // If horizontal movement is detected.
+                if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
+                {
 
-                movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
+                    movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
 
+                }
+
+                // If vertical movement is detected.
+                if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f)
+                {
+
+                    movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
+
+                }
             }
-
-            // If vertical movement is detected.
-            if(Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f) {
-
-                movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
-
-            }
-
         }
 
     }
@@ -118,6 +132,12 @@ public class Player_Controller : MonoBehaviour
     {
         victoryPoints += amount;
         UpdateCurrencyUI();
+    }
+
+    public void endTurn()
+    {
+        UpdatePlayerNumberUI();
+        turn = false;
     }
 
     #endregion 

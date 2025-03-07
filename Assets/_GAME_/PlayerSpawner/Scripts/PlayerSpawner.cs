@@ -20,13 +20,11 @@ public class PlayerSpawner : MonoBehaviour
         GameLogicScript logicScript = logic.GetComponent<GameLogicScript>();
         int numberOfPlayers = logicScript.NumberOfPlayers;
         
-        string name;
-
         // Spawning in the corresponding number of Player GameObjects.
         for(int i = 0; i < numberOfPlayers; i++) {
             
-            name = "Player " + (i + 1);
-            spawnPlayer(name);
+            string name = "Player " + (i + 1);
+            spawnPlayer(name, i + 1);
             
         }
     }
@@ -38,7 +36,7 @@ public class PlayerSpawner : MonoBehaviour
     }
 
     // Instantiates a new Player GameObject.
-    void spawnPlayer(string name) {
+    void spawnPlayer(string name, int playerNum) {
 
         // Arbitrary map bounds so player only generates on a tile on screen.
         float minX = -10.5f;
@@ -49,6 +47,13 @@ public class PlayerSpawner : MonoBehaviour
         // Instantiating Player GameObject, renaming to distinguish instantiations.
         GameObject plyr = Instantiate(player, new Vector3(Random.Range(minX, maxX) + CENTRE_OFFSET, Random.Range(minY, maxY) + CENTRE_OFFSET, 0f), transform.rotation);
         plyr.name = name;
+
+        Player_Controller playerController = plyr.GetComponent<Player_Controller>();
+
+        if (playerController != null)
+        {
+            playerController.playerNumber = playerNum;
+        }
 
     }
 }
