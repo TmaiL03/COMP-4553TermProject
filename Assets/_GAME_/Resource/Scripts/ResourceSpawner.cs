@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class ResourceSpawner : MonoBehaviour
 {
@@ -43,13 +44,26 @@ public class ResourceSpawner : MonoBehaviour
         GameObject rsrc = Instantiate(resource, findLocation(), transform.rotation);
     }
 
+    // Changed so Resources spawn in center of tile in grid
     Vector3 findLocation()
     {
-        // Arbitrary map bounds so player only generates on a tile on screen.
-        float minX = -10.5f;
-        float maxX = 10.5f;
-        float minY = -3.5f;
-        float maxY = 3.5f;
-        return new Vector3(Random.Range(minX, maxX) + CENTRE_OFFSET, Random.Range(minY, maxY) + CENTRE_OFFSET, 0f);
+        Tilemap groundTilemap = GameObject.Find("Ground")?.GetComponent<Tilemap>();
+
+        Vector3Int tilePosition;
+        Vector3 worldPosition;
+
+         do {
+            // Generate a random **grid-aligned** tile position within bounds
+            int tileX = Random.Range(-10, 10); // Integer values within tilemap bounds
+            int tileY = Random.Range(-3, 3);
+            tilePosition = new Vector3Int(tileX, tileY, 0);
+
+            // Convert from grid coordinates to world position (centering offset is handled by CellToWorld)
+            worldPosition = groundTilemap.GetCellCenterWorld(tilePosition);
+
+        } while (!groundTilemap.HasTile(tilePosition)); // Ensure the tile is valid
+
+
+        return worldPosition;
     }
 }

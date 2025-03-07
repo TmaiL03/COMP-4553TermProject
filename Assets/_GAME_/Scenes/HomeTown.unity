@@ -1087,7 +1087,6 @@ MonoBehaviour:
   NumberOfPlayers: 0
   GridMap: {fileID: 794529655}
   TileList: []
-  playerSpawner: {fileID: 1890201286}
   NumberOfResources: 3
 --- !u!114 &525649500
 MonoBehaviour:
@@ -2976,7 +2975,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1020786473
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -5370,7 +5369,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1442737686074605864, guid: 4e6890abeb8b7b24dbc2f31dc1bf2d2a, type: 3}
-  players: []
   logic: {fileID: 525649496}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

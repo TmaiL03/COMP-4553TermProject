@@ -192,11 +192,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886fd66336d53ba4abd173fa91f37d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundTilemap: {fileID: 0}
+  oceanTilemap: {fileID: 0}
+  playerNumber: 0
+  turn: 0
   victoryPoints: 0
   developmentPoints: 0
   _moveSpeed: 5
   _rb: {fileID: 1442737686074605870}
-  movePoint: {fileID: 1442737686086497137}
 --- !u!61 &2244217033625604090
 BoxCollider2D:
   m_ObjectHideFlags: 0

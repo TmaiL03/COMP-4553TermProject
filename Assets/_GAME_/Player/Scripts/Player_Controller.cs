@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
 
 [SelectionBase]
 public class Player_Controller : MonoBehaviour
 {
     #region Editor Data
+
+    [SerializeField] Tilemap groundTilemap;
+    [SerializeField] Tilemap oceanTilemap;
 
     [Header("Player Info")]
     [SerializeField] public int playerNumber;
@@ -22,23 +26,71 @@ public class Player_Controller : MonoBehaviour
     
     [Header("Dependencies")]
     [SerializeField] Rigidbody2D _rb;
-    [SerializeField] Transform movePoint;
 
     private PlayerCurrency playerCurrencyUI;
     private PlayerNumber playerNumberUI;
 
+    private PlayerMovement controls;
+
     #endregion
 
-    private void Start() {
+    private void Awake() {
+        controls = new PlayerMovement();
+    }
 
-        // Moving movePoint reference outside of Player GameObject (was nested for organizational purposes).
-        movePoint.parent = null;
+    private void OnEnable() {
+        controls.Enable();
+    }
+
+    private void OnDisable() {
+        controls.Disable();
+    }
+
+    // Enables and disables player controls for tunr based control
+    public void SetInputState(bool isActive) {
+        if (isActive)
+        {
+            controls.Enable();
+        }
+        else
+        {
+            controls.Disable();
+        }
+    }
+
+    
+    private void Start() {
+        // gets refrences to the ocean and ground tile maps as they are dynamic
+        // Make global variable in gamelogic script?
+        groundTilemap = GameObject.Find("Ground")?.GetComponent<Tilemap>();
+        oceanTilemap = GameObject.Find("Ocean")?.GetComponent<Tilemap>();
+
+        // Using unities built in system input, no need for movepoint
+        controls.Main.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
 
         playerCurrencyUI = FindObjectOfType<PlayerCurrency>();
         playerNumberUI = FindObjectOfType<PlayerNumber>();
 
         UpdateCurrencyUI();
         UpdatePlayerNumberUI();
+
+        SetInputState(turn);
+    }
+
+    // Moves player
+    private void Move(Vector2 direction) {
+        if (CanMove(direction)) {
+            transform.position += (Vector3)direction;
+        }
+    }
+
+    // Checks player is allowed to move there
+    private bool CanMove(Vector2 direction) {
+        Vector3Int gridPosition = groundTilemap.WorldToCell(transform.position + (Vector3)direction);
+
+        if (!groundTilemap.HasTile(gridPosition) || oceanTilemap.HasTile(gridPosition)) {
+            return false;
+        } else { return true; }
     }
 
     public void UpdateCurrencyUI()
@@ -64,69 +116,6 @@ public class Player_Controller : MonoBehaviour
     #endregion
     
     #region Movement Logic
-
-    // Returns a boolean as to whether the movePoint's position is a valid position.
-    // NOTE: THIS IS A TEMPORARY, NON-DYNAMIC SOLUTION (issues were encountered
-    // configuring the RigidBody2D and colliders to interact properly with the map.)
-    private bool IsValidPosition() {
-
-        if(movePoint.position.x < -10.5f) {
-
-            movePoint.position = new Vector3 (-10.5f, movePoint.position.y, 0f);
-
-        } else if(movePoint.position.x > 10.5f) {
-
-            movePoint.position = new Vector3 (10.5f, movePoint.position.y, 0f);
-
-        } else if(movePoint.position.y < -3.5f) {
-
-            movePoint.position = new Vector3 (movePoint.position.x, -3.5f, 0f);
-
-        } else if(movePoint.position.y > 3.5f) {
-
-            movePoint.position = new Vector3 (movePoint.position.x, 3.5f, 0f);
-
-        } else {
-
-            return true;
-
-        }
-
-        return false;
-        
-    }
-
-    // Called every frame.
-    private void Update() {
-
-        if (turn)
-        {
-            // Move player character position to position of movePoint.
-            transform.position = Vector3.MoveTowards(transform.position, movePoint.position, _moveSpeed * Time.deltaTime);
-
-            // Once character has successfully moved to movePoint (and movePoint is at valid position), accept further input.
-            if (Vector3.Distance(transform.position, movePoint.position) == 0f && IsValidPosition())
-            {
-
-                // If horizontal movement is detected.
-                if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
-                {
-
-                    movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
-
-                }
-
-                // If vertical movement is detected.
-                if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f)
-                {
-
-                    movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
-
-                }
-            }
-        }
-
-    }
 
     public void addScore(int amount)
     {

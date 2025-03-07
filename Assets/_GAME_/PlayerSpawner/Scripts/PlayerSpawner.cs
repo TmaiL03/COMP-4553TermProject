@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerSpawner : MonoBehaviour
 {
@@ -35,25 +36,39 @@ public class PlayerSpawner : MonoBehaviour
         
     }
 
-    // Instantiates a new Player GameObject.
+    // Changed so player spawns in center of tile
     void spawnPlayer(string name, int playerNum) {
+        // Reference to the tilemap (ensure it's assigned correctly in the scene)
+        Tilemap groundTilemap = GameObject.Find("Ground")?.GetComponent<Tilemap>();
 
-        // Arbitrary map bounds so player only generates on a tile on screen.
-        float minX = -10.5f;
-        float maxX = 10.5f;
-        float minY = -3.5f;
-        float maxY = 3.5f;
-        
-        // Instantiating Player GameObject, renaming to distinguish instantiations.
-        GameObject plyr = Instantiate(player, new Vector3(Random.Range(minX, maxX) + CENTRE_OFFSET, Random.Range(minY, maxY) + CENTRE_OFFSET, 0f), transform.rotation);
+        Vector3Int tilePosition;
+        Vector3 worldPosition;
+
+        do {
+            // Generate a random **grid-aligned** tile position within bounds
+            int tileX = Random.Range(-10, 10); // Integer values within tilemap bounds
+            int tileY = Random.Range(-3, 3);
+            tilePosition = new Vector3Int(tileX, tileY, 0);
+
+            // Convert from grid coordinates to world position (centering offset is handled by CellToWorld)
+            worldPosition = groundTilemap.GetCellCenterWorld(tilePosition);
+
+        } while (!groundTilemap.HasTile(tilePosition)); // Ensure the tile is valid
+
+        // Instantiate player at snapped world position
+        GameObject plyr = Instantiate(player, worldPosition, Quaternion.identity);
         plyr.name = name;
 
+        // Assign player number
         Player_Controller playerController = plyr.GetComponent<Player_Controller>();
-
-        if (playerController != null)
-        {
+        if (playerController != null) {
             playerController.playerNumber = playerNum;
-        }
 
+            // Gives player 1 controls to move
+            if (playerNum == 1) {
+                playerController.turn = true;
+            }
+        }
     }
+
 }
