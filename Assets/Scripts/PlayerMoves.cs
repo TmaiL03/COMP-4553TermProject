@@ -4,9 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerCurrency : MonoBehaviour
+public class PlayerMoves : MonoBehaviour
 {
-    public TextMeshProUGUI coinText;
+    public TextMeshProUGUI movesText;
     private Player_Controller playerController;
 
     private void Start()
@@ -19,11 +19,11 @@ public class PlayerCurrency : MonoBehaviour
             return;
         }
 
-        UpdateCurrencyUI(playerController.currency);
+        UpdateMovesUI(playerController.moves);
     }
 
-    public void UpdateCurrencyUI(int amount)
+    public void UpdateMovesUI(int amount)
     {
-        coinText.text = "Coins: " + amount.ToString();
+        movesText.text = "Moves: " + amount.ToString();
     }
 }

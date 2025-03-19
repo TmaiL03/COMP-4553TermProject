@@ -32,8 +32,11 @@ public class TurnManager : MonoBehaviour
                 currentPlayerIndex = players.IndexOf(playerOne);
                 players[currentPlayerIndex].turn = true;
 
+                players[currentPlayerIndex].moves = 5;
+
                 UpdateTurnUI();
                 players[currentPlayerIndex].UpdateCurrencyUI();
+                players[currentPlayerIndex].UpdateMovesUI();
                 players[currentPlayerIndex].UpdatePlayerNumberUI();
             } else
             {
@@ -52,7 +55,9 @@ public class TurnManager : MonoBehaviour
         {
             return;
         }
-        
+
+        players[currentPlayerIndex].moves += 5;
+
         // Disable controls for the current player
         players[currentPlayerIndex].SetInputState(false);
         players[currentPlayerIndex].turn = false;
@@ -64,6 +69,7 @@ public class TurnManager : MonoBehaviour
         players[currentPlayerIndex].turn = true;
 
         players[currentPlayerIndex].UpdateCurrencyUI();
+        players[currentPlayerIndex].UpdateMovesUI();
         UpdateTurnUI();
     }
 
