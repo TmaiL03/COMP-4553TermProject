@@ -5282,10 +5282,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players:
-  - {fileID: 5279231037558901773, guid: 9df3da29539269b4f926d321087daf73, type: 3}
-  - {fileID: 2889026924955713988, guid: 8e25a383dfb0ef54fa0c46ce02ec77ef, type: 3}
-  - {fileID: 4938893515595930763, guid: 74ac17306ffe6174984618eb78e2e249, type: 3}
-  - {fileID: 7986861436313114221, guid: e3d92ba47fee5d741be47c946ac8226b, type: 3}
+  - {fileID: 6511436535331875102, guid: 1ae667dc778ad2c48a3fdc40b1725718, type: 3}
+  - {fileID: 2531192091935564678, guid: 60daab6fd94240147b90ca2c981335cb, type: 3}
+  - {fileID: 660612822138427067, guid: 7be38c2ad4dcd6941a342ecf8e7e613e, type: 3}
+  - {fileID: 8638893210291955356, guid: d0f43a0d7211c2a4884cdc96854b5791, type: 3}
   logic: {fileID: 525649496}
 --- !u!1 &1907559149
 GameObject:
