@@ -196,10 +196,11 @@ MonoBehaviour:
   oceanTilemap: {fileID: 0}
   playerNumber: 0
   turn: 0
-  victoryPoints: 0
-  developmentPoints: 0
+  currency: 0
+  moves: 0
   _moveSpeed: 5
   _rb: {fileID: 1442737686074605870}
+  winCurrency: 5
 --- !u!61 &2244217033625604090
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -235,10 +236,10 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
@@ -258,11 +259,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: 
-  playerLevel: 0
   playerCurrency: 50
-  damage: 0
-  maxHP: 0
-  currentHP: 0
+  developmentPoints: 5
 --- !u!1 &1442737686086497138
 GameObject:
   m_ObjectHideFlags: 0

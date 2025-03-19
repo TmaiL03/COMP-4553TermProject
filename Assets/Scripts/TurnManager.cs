@@ -56,14 +56,14 @@ public class TurnManager : MonoBehaviour
             return;
         }
 
-        players[currentPlayerIndex].moves += 5;
-
         // Disable controls for the current player
         players[currentPlayerIndex].SetInputState(false);
         players[currentPlayerIndex].turn = false;
 
         currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
-        
+
+        players[currentPlayerIndex].moves += 5;
+
         // Enable controls for the new active player
         players[currentPlayerIndex].SetInputState(true);
         players[currentPlayerIndex].turn = true;
