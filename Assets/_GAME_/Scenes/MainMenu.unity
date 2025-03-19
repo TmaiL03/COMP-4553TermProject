@@ -1483,6 +1483,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NumberOfPlayers: 0
+  GridMap: {fileID: 0}
+  TileList: []
+  NumberOfResources: 3
 --- !u!4 &816273774
 Transform:
   m_ObjectHideFlags: 0
