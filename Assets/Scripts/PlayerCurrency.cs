@@ -24,6 +24,6 @@ public class PlayerCurrency : MonoBehaviour
 
     public void UpdateCurrencyUI(int amount)
     {
-        coinText.text = "Coins: " + amount.ToString();
+        coinText.text = amount.ToString();
     }
 }
