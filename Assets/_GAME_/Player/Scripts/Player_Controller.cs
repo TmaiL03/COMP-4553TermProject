@@ -62,8 +62,11 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
-    
+    private Animator animator;
     private void Start() {
+
+        animator = GetComponent<Animator>();
+
         // gets refrences to the ocean and ground tile maps as they are dynamic
         // Make global variable in gamelogic script?
         groundTilemap = GameObject.Find("Ground")?.GetComponent<Tilemap>();
@@ -86,9 +89,36 @@ public class Player_Controller : MonoBehaviour
     // Moves player
     private void Move(Vector2 direction) {
         if (CanMove(direction)) {
-            transform.position += (Vector3)direction;
+            if (direction.x > 0)
+            {
+                transform.localScale = new Vector3(-0.75f, 0.75f, 0.75f);
+            }
+            else
+            {
+                transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+            }
+
             move();
+
+            StartCoroutine(MoveSmooth(transform.position + (Vector3)direction));
         }
+    }
+
+    private IEnumerator MoveSmooth(Vector3 targetPosition)
+    {
+        if (animator.GetBool("isWalking")) yield break;
+
+        animator.SetBool("isWalking", true);
+
+        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, _moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        transform.position = targetPosition;
+
+        animator.SetBool("isWalking", false);
     }
 
     // Checks player is allowed to move there
