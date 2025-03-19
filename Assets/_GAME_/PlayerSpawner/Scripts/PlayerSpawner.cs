@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public class PlayerSpawner : MonoBehaviour
 {
     // Reference to Player prefab.
-    public GameObject player;
+    public GameObject[] players;
 
     // Centering offset for Player GameObject.
     private const float CENTRE_OFFSET = 0.5f;
@@ -56,7 +56,7 @@ public class PlayerSpawner : MonoBehaviour
         } while (!groundTilemap.HasTile(tilePosition)); // Ensure the tile is valid
 
         // Instantiate player at snapped world position
-        GameObject plyr = Instantiate(player, worldPosition, Quaternion.identity);
+        GameObject plyr = Instantiate(players[playerNum - 1], worldPosition, Quaternion.identity);
         plyr.name = name;
 
         // Assign player number
