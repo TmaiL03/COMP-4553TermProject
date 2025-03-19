@@ -22,8 +22,6 @@ public class TileMapTest : MonoBehaviour
             
             // Setting the Tile at the provided position.
             myTileMap.SetTile(position, TileList[Random.Range(0, TileList.Length)]);
-            Debug.Log("Tile at " + position + " has been changed.");
-
         } else {
 
             Debug.LogWarning("No tile found at position " + position);
