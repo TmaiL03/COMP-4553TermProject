@@ -28,7 +28,7 @@ public class Player_Controller : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField] Rigidbody2D _rb;
 
-    [SerializeField] int winCurrency = 20;
+    int winCurrency = 20;
 
     private PlayerCurrency playerCurrencyUI;
     private PlayerNumber playerNumberUI;
