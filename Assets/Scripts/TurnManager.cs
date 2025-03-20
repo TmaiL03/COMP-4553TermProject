@@ -9,9 +9,11 @@ public class TurnManager : MonoBehaviour
     public List<Player_Controller> players = new List<Player_Controller>();
     public TextMeshProUGUI turnText;
     private int currentPlayerIndex = 0;
+    public GameObject notEnoughWoodPanel;
 
     void Start()
     {
+        notEnoughWoodPanel.SetActive(false);
         StartCoroutine(WaitForPlayers());
     }
 
@@ -90,6 +92,19 @@ public class TurnManager : MonoBehaviour
         else
         {
             Debug.Log("Not enough wood to build!");
+
+            notEnoughWoodPanel.SetActive(true);
+            StartCoroutine(HidePanelAfterDelay(2f));
+        }
+    }
+
+    private IEnumerator HidePanelAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (notEnoughWoodPanel != null)
+        {
+            notEnoughWoodPanel.SetActive(false);
         }
     }
 

@@ -91,32 +91,6 @@ public class Player_Controller : MonoBehaviour
         SetInputState(turn);
     }
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.B))
-    //    {
-    //        TryBuildHouse();
-    //    }
-    //}
-
-    //public void TryBuildHouse()
-    //{
-    //    if (wood >= settlementWoodCost)
-    //    {
-    //        Vector3 playerPosition = transform.position;
-    //        Vector3 tilePosition = groundTilemap.GetCellCenterWorld(groundTilemap.WorldToCell(playerPosition));
-
-    //        Instantiate(settlementPrefab, tilePosition, Quaternion.identity);
-
-    //        wood -= settlementWoodCost;
-    //        UpdateWoodUI();
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("Not enough wood to build!");
-    //    }
-    //}
-
     // Moves player
     private void Move(Vector2 direction) {
         if (CanMove(direction)) {
