@@ -6,7 +6,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class TurnManager : MonoBehaviour
 {
-    private List<Player_Controller> players = new List<Player_Controller>();
+    public List<Player_Controller> players = new List<Player_Controller>();
     public TextMeshProUGUI turnText;
     private int currentPlayerIndex = 0;
 
@@ -73,6 +73,24 @@ public class TurnManager : MonoBehaviour
         players[currentPlayerIndex].UpdateWoodUI();
         players[currentPlayerIndex].UpdateMovesUI();
         UpdateTurnUI();
+    }
+
+    public void TryBuildHouse()
+    {
+        if (players[currentPlayerIndex].wood >= players[currentPlayerIndex].settlementWoodCost)
+        {
+            Vector3 playerPosition = players[currentPlayerIndex].transform.position;
+            Vector3 tilePosition = players[currentPlayerIndex].groundTilemap.GetCellCenterWorld(players[currentPlayerIndex].groundTilemap.WorldToCell(playerPosition));
+
+            Instantiate(players[currentPlayerIndex].settlementPrefab, tilePosition, Quaternion.identity);
+
+            players[currentPlayerIndex].wood -= players[currentPlayerIndex].settlementWoodCost;
+            players[currentPlayerIndex].UpdateWoodUI();
+        }
+        else
+        {
+            Debug.Log("Not enough wood to build!");
+        }
     }
 
     // Updates the UI to show whose turn it is

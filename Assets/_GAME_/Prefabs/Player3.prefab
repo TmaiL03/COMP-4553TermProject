@@ -814,12 +814,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundTilemap: {fileID: 0}
   oceanTilemap: {fileID: 0}
+  settlementPrefab: {fileID: 1915085955984395257, guid: 9641ba8326d334e48a3807441c1d72fe, type: 3}
   playerNumber: 0
   turn: 0
   currency: 0
   moves: 0
+  wood: 0
   _moveSpeed: 5
   _rb: {fileID: 7892940149430508901}
+  settlementWoodCost: 10
 --- !u!61 &8870965595279243334
 BoxCollider2D:
   m_ObjectHideFlags: 0

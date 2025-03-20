@@ -11,8 +11,9 @@ public class Player_Controller : MonoBehaviour
 {
     #region Editor Data
 
-    [SerializeField] Tilemap groundTilemap;
+    public Tilemap groundTilemap;
     [SerializeField] Tilemap oceanTilemap;
+    public GameObject settlementPrefab;
 
     [Header("Player Info")]
     public int playerNumber;
@@ -30,6 +31,7 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] Rigidbody2D _rb;
 
     int winCurrency = 20;
+    public int settlementWoodCost = 10;
 
     private PlayerCurrency playerCurrencyUI;
     private PlayerNumber playerNumberUI;
@@ -88,6 +90,32 @@ public class Player_Controller : MonoBehaviour
 
         SetInputState(turn);
     }
+
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.B))
+    //    {
+    //        TryBuildHouse();
+    //    }
+    //}
+
+    //public void TryBuildHouse()
+    //{
+    //    if (wood >= settlementWoodCost)
+    //    {
+    //        Vector3 playerPosition = transform.position;
+    //        Vector3 tilePosition = groundTilemap.GetCellCenterWorld(groundTilemap.WorldToCell(playerPosition));
+
+    //        Instantiate(settlementPrefab, tilePosition, Quaternion.identity);
+
+    //        wood -= settlementWoodCost;
+    //        UpdateWoodUI();
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Not enough wood to build!");
+    //    }
+    //}
 
     // Moves player
     private void Move(Vector2 direction) {
