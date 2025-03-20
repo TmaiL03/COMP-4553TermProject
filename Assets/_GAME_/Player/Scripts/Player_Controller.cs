@@ -29,6 +29,7 @@ public class Player_Controller : MonoBehaviour
     public int settlements = 0;
     public int farms = 0;
     public int bookshelves = 0;
+    public int infection = 0;
 
     [Header("Movement Attributes")]
     [SerializeField] float _moveSpeed = 5f;
@@ -106,13 +107,17 @@ public class Player_Controller : MonoBehaviour
     // Moves player
     private void Move(Vector2 direction) {
         if (CanMove(direction)) {
+            toggleInfection();
             if (direction.x > 0)
             {
                 transform.localScale = new Vector3(-0.75f, 0.75f, 0.75f);
+                transform.Find("Name").localScale = new Vector3(-1.333333f, 1.333333f, 1.333333f);
+
             }
             else
             {
                 transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+                transform.Find("Name").localScale = new Vector3(1.333333f, 1.333333f, 1.333333f);
             }
 
             move();
@@ -146,10 +151,26 @@ public class Player_Controller : MonoBehaviour
             return false;
         } else 
         {
-            if (moves > 0)
+            if (moves > 0) {
+                if (groundTilemap.GetColor(gridPosition) == Color.red && currency > 0) {
+                    infection += 1;
+                } else if (!(groundTilemap.GetColor(gridPosition) == Color.red) && infection > 0) {
+                    infection -= 1;
+                }
                 return true;
-            else
+            } else
                 return false;
+        }
+    }
+
+    public void toggleInfection() {
+        GameObject infectionLevel = transform.Find("Body/Infection").gameObject;
+        if (infection > 0) {
+            TextMeshPro infectionText = infectionLevel.GetComponentInChildren<TextMeshPro>();
+            infectionText.text = infection.ToString();
+            infectionLevel.SetActive(true);
+        } else {
+            infectionLevel.SetActive(false);
         }
     }
 

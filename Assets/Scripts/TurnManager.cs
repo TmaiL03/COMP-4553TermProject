@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using TMPro;
 using static UnityEditor.Experimental.GraphView.GraphView;
 using UnityEngine.SceneManagement;
@@ -24,6 +25,16 @@ public class TurnManager : MonoBehaviour
     public GameObject[] farms;
     public GameObject[] bookshelves;
 
+    public Tilemap tilemap;
+    public Tile tileToChange;
+    public Color changeColor = Color.red;
+
+    private int turnCount = 0;
+
+    private Queue<Vector3Int> spreadQueue = new Queue<Vector3Int>();
+    private HashSet<Vector3Int> visitedTiles = new HashSet<Vector3Int>();
+
+
     void Start()
     {
         notEnoughWoodPanel.SetActive(false);
@@ -31,6 +42,18 @@ public class TurnManager : MonoBehaviour
         notEnoughGoldPanel.SetActive(false);
 
         StartCoroutine(WaitForPlayers());
+
+        tilemap = GameObject.Find("Ground")?.GetComponent<Tilemap>();
+        // Get the center position of the Tilemap in grid coordinates
+        Vector3 test = tilemap.cellBounds.center;
+        Vector3Int centerInGrid = tilemap.WorldToCell(test);
+
+        // Add the center tile to the spread queue to start spreading from there
+        spreadQueue.Enqueue(centerInGrid);
+        visitedTiles.Add(centerInGrid);
+
+        // Start the spreading process
+        StartCoroutine(SpreadBlight());
     }
 
     private IEnumerator WaitForPlayers()
@@ -70,9 +93,26 @@ public class TurnManager : MonoBehaviour
     // Activated when the 'End Turn' button is clicked
     public void EndTurn()
     {
+        turnCount++;
+
         if (players.Count == 0)
         {
             return;
+        }
+
+        if (players[currentPlayerIndex].infection > 0) {
+            int newCurrency = players[currentPlayerIndex].currency - players[currentPlayerIndex].infection;
+            if (newCurrency >= 0) {
+                players[currentPlayerIndex].currency = newCurrency;
+            } else {
+                players[currentPlayerIndex].currency = 0;
+            }
+            players[currentPlayerIndex].UpdateCurrencyUI();
+        }
+
+        if (turnCount % players.Count == 0) {
+            turnCount = 0;
+            StartCoroutine(SpreadBlight());
         }
 
         // Disable controls for the current player
@@ -246,9 +286,72 @@ public class TurnManager : MonoBehaviour
             turnText.text = "Player: " + (players[currentPlayerIndex].playerNumber);
         }
     }
-
     public void GoToScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+    
+    public IEnumerator SpreadBlight() {
+        int currentQueueSize = spreadQueue.Count;
+
+        // Process all tiles in the current cycle (all tiles that need to spread this turn)
+        for (int i = 0; i < currentQueueSize; i++)
+        {
+            Vector3Int currentTile = spreadQueue.Dequeue();
+
+            // Change the current tile's color (or perform any modification you want)
+            TileBase tileBase = tilemap.GetTile(currentTile);
+            if (tileBase != null)
+            {
+                Tile currentTileObj = tileBase as Tile;
+                if (currentTileObj != null)
+                {
+                    Tile newTile = ScriptableObject.CreateInstance<Tile>();
+                    newTile.sprite = currentTileObj.sprite;  // Keep the same sprite
+                    newTile.color = changeColor;             // Set the new color
+
+                    // Set the new tile at the current position
+                    tilemap.SetTile(currentTile, newTile);
+                }
+            }
+
+            // Expand to adjacent tiles (up, down, left, right, and diagonals)
+            ExpandToAdjacentTiles(currentTile);
+        }
+            yield return null;
+    }
+
+    void ExpandToAdjacentTiles(Vector3Int currentTile) {
+        // Directions: up, down, left, and right
+        Vector3Int[] directions = new Vector3Int[]
+        {
+            Vector3Int.up,         // Up
+            Vector3Int.down,       // Down
+            Vector3Int.left,       // Left
+            Vector3Int.right      // Right
+        };
+
+        Vector3Int direction1 = directions[Random.Range(0, directions.Length)];
+        Vector3Int direction2;
+
+        do {
+            direction2 = directions[Random.Range(0, directions.Length)];
+        } while (direction1 == direction2);
+
+        Vector3Int[] chosenDirections = { direction1, direction2 };
+
+        // Iterate over each direction and add the neighboring tile to the spread queue
+        foreach (var direction in chosenDirections)
+        {
+            Vector3Int neighborPosition = currentTile + direction;
+
+            // Check if the tile is already visited or if it's outside the Tilemap bounds
+            if (!visitedTiles.Contains(neighborPosition) && tilemap.HasTile(neighborPosition))
+            {
+                // Add the neighbor tile to the spread queue and mark it as visited
+                spreadQueue.Enqueue(neighborPosition);
+                visitedTiles.Add(neighborPosition);
+            }
+        }
     }
 }
