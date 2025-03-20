@@ -15,6 +15,9 @@ public class ResourceSpawner : MonoBehaviour
     [SerializeField] GameObject logic;
 
     int numberOfResources;
+    
+    // Defines probability a Resource is Fool's Gold.
+    [SerializeField] private int foolsProb;
 
     // Start is called before the first frame update
     void Start()
@@ -40,8 +43,31 @@ public class ResourceSpawner : MonoBehaviour
     // Instantiates a new Player GameObject.
     public void spawnResource()
     {
-        // Instantiating Player GameObject, renaming to distinguish instantiations.
+        // Instantiating Resource GameObject, renaming to distinguish instantiations.
         GameObject rsrc = Instantiate(resource, findLocation(), transform.rotation);
+        ResourceController fools = rsrc.GetComponent<ResourceController>();
+
+        // Sets fool's gold Boolean depending on provided probability.
+        fools.fools = setFoolsBool(foolsProb);
+    }
+
+    // Calculates if the current Resource instance will be a fool's gold instance or not.
+    public bool setFoolsBool(int prob) {
+
+        // Integer Random.Range() overload maxbound is exclusive, so +1 must be added.
+        int probVal = Random.Range(1, prob + 1);
+
+        // If generated probability value is 1, return true, else false.
+        if(probVal == 1) {
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+
     }
 
     // Changed so Resources spawn in center of tile in grid
