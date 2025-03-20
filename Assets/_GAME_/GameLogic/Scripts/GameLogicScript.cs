@@ -13,7 +13,7 @@ public class GameLogicScript : MonoBehaviour
     // Reference list containing all permissible Tile types.
     public Tile[] TileList;
 
-    public int NumberOfResources = 3;
+    public int NumberOfResources = 3;   
     public int AmountOfWood = 3;
     public int AmountOfFood = 3;
 

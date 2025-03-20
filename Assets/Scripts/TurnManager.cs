@@ -10,18 +10,25 @@ public class TurnManager : MonoBehaviour
 {
     private List<Vector3> settlementPositions = new List<Vector3>();
     private List<Vector3> farmPositions = new List<Vector3>();
+    private List<Vector3> bookshelfPositions = new List<Vector3>();
+
     public List<Player_Controller> players = new List<Player_Controller>();
     public TextMeshProUGUI turnText;
     private int currentPlayerIndex = 0;
+
     public GameObject notEnoughWoodPanel;
     public GameObject notEnoughMeatPanel;
+    public GameObject notEnoughGoldPanel;
+
     public GameObject[] settlements;
     public GameObject[] farms;
+    public GameObject[] bookshelves;
 
     void Start()
     {
         notEnoughWoodPanel.SetActive(false);
         notEnoughMeatPanel.SetActive(false);
+        notEnoughGoldPanel.SetActive(false);
 
         StartCoroutine(WaitForPlayers());
     }
@@ -82,6 +89,7 @@ public class TurnManager : MonoBehaviour
 
         int numOfSettlements = players[currentPlayerIndex].settlements;
         int numOfFarms = players[currentPlayerIndex].farms;
+        int numOfBookshelves = players[currentPlayerIndex].bookshelves;
 
         // For each settlement a player has, they get 3 coins at the start of each turn
         for (int i = 0; i < numOfSettlements; i++)
@@ -92,6 +100,11 @@ public class TurnManager : MonoBehaviour
         for (int i = 0; i < numOfFarms; i++)
         {
             players[currentPlayerIndex].currency += 3;
+        }
+
+        for (int i = 0; i < numOfBookshelves; i++)
+        {
+            players[currentPlayerIndex].moves += 3;
         }
 
         players[currentPlayerIndex].UpdateCurrencyUI();
@@ -110,9 +123,9 @@ public class TurnManager : MonoBehaviour
             Vector3 playerPosition = player.transform.position;
             Vector3 tilePosition = player.groundTilemap.GetCellCenterWorld(player.groundTilemap.WorldToCell(playerPosition));
 
-            if (settlementPositions.Contains(tilePosition) || farmPositions.Contains(tilePosition))
+            if (settlementPositions.Contains(tilePosition) || farmPositions.Contains(tilePosition) || bookshelfPositions.Contains(tilePosition))
             {
-                Debug.Log("Cannot Build Here! A Settlement is Already Placed on This Tile!");
+                Debug.Log("Cannot Build Here! Something is Already Placed on This Tile!");
                 return;
             }
 
@@ -141,9 +154,9 @@ public class TurnManager : MonoBehaviour
             Vector3 playerPosition = player.transform.position;
             Vector3 tilePosition = player.groundTilemap.GetCellCenterWorld(player.groundTilemap.WorldToCell(playerPosition));
 
-            if (settlementPositions.Contains(tilePosition) || farmPositions.Contains(tilePosition))
+            if (settlementPositions.Contains(tilePosition) || farmPositions.Contains(tilePosition) || bookshelfPositions.Contains(tilePosition))
             {
-                Debug.Log("Cannot Build Here! A Settlement or Farm is Already Placed on This Tile!");
+                Debug.Log("Cannot Build Here! Something is Already Placed on This Tile!");
                 return;
             }
 
@@ -160,6 +173,38 @@ public class TurnManager : MonoBehaviour
 
             notEnoughMeatPanel.SetActive(true);
             StartCoroutine(HideFoodPanelAfterDelay(2f));
+        }
+    }
+
+    public void TryBuildBookshelf()
+    {
+        if (players[currentPlayerIndex].currency >= players[currentPlayerIndex].bookshelfGoldCost)
+        {
+            Player_Controller player = players[currentPlayerIndex];
+
+            Vector3 playerPosition = player.transform.position;
+            Vector3 tilePosition = player.groundTilemap.GetCellCenterWorld(player.groundTilemap.WorldToCell(playerPosition));
+
+            if (settlementPositions.Contains(tilePosition) || farmPositions.Contains(tilePosition) || bookshelfPositions.Contains(tilePosition))
+            {
+                Debug.Log("Cannot Build Here! Something is Already Placed on This Tile!");
+                return;
+            }
+
+            Instantiate(bookshelves[player.playerNumber - 1], tilePosition, Quaternion.identity);
+
+            players[currentPlayerIndex].bookshelves += 1;
+            players[currentPlayerIndex].currency -= players[currentPlayerIndex].bookshelfGoldCost;
+            players[currentPlayerIndex].UpdateCurrencyUI();
+            players[currentPlayerIndex].UpdateBookshelfUI();
+            bookshelfPositions.Add(tilePosition);
+        }
+        else
+        {
+            Debug.Log("Not enough gold to build!");
+
+            notEnoughGoldPanel.SetActive(true);
+            StartCoroutine(HideGoldPanelAfterDelay(2f));
         }
     }
 
@@ -180,6 +225,16 @@ public class TurnManager : MonoBehaviour
         if (notEnoughMeatPanel != null)
         {
             notEnoughMeatPanel.SetActive(false);
+        }
+    }
+
+    private IEnumerator HideGoldPanelAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (notEnoughGoldPanel != null)
+        {
+            notEnoughGoldPanel.SetActive(false);
         }
     }
 

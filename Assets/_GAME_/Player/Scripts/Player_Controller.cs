@@ -15,6 +15,7 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] Tilemap oceanTilemap;
     public GameObject settlementPrefab;
     public GameObject farmPrefab;
+    public GameObject bookshelfPrefab;
 
     [Header("Player Info")]
     public int playerNumber;
@@ -27,6 +28,7 @@ public class Player_Controller : MonoBehaviour
     public int food = 0;
     public int settlements = 0;
     public int farms = 0;
+    public int bookshelves = 0;
 
     [Header("Movement Attributes")]
     [SerializeField] float _moveSpeed = 5f;
@@ -34,15 +36,17 @@ public class Player_Controller : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField] Rigidbody2D _rb;
 
-    int winCurrency = 50;
+    int winNumOfBookshelves = 3; 
     public int settlementWoodCost = 10;
     public int farmMeatCost = 10;
+    public int bookshelfGoldCost = 10;
 
     private PlayerCurrency playerCurrencyUI;
     private PlayerNumber playerNumberUI;
     private PlayerMoves playerMovesUI;
     private PlayerWood playerWoodUI;
     private PlayerFood playerFoodUI;
+    private PlayerBookshelf playerBookshelfUI;
 
     private PlayerMovement controls;
 
@@ -90,6 +94,7 @@ public class Player_Controller : MonoBehaviour
         playerMovesUI = FindObjectOfType<PlayerMoves>();
         playerWoodUI = FindObjectOfType<PlayerWood>();
         playerFoodUI = FindObjectOfType<PlayerFood>();
+        playerBookshelfUI = FindObjectOfType<PlayerBookshelf>();
 
         UpdateCurrencyUI();
         UpdatePlayerNumberUI();
@@ -154,7 +159,7 @@ public class Player_Controller : MonoBehaviour
         {
             playerCurrencyUI.UpdateCurrencyUI(currency);
 
-            if (currency >= winCurrency)
+            if (bookshelves >= winNumOfBookshelves)
             {
                 SaveScores();
                 GoToScene("GameOver");
@@ -178,12 +183,20 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
+    public void UpdateBookshelfUI()
+    {
+        if (playerBookshelfUI != null)
+        {
+            playerBookshelfUI.UpdateBookshelfUI(bookshelves);
+        }
+    }
+
     public void SaveScores()
     {
         for (int i = 0; i < FindObjectsOfType<Player_Controller>().Length; i++)
         {
             Player_Controller player = FindObjectsOfType<Player_Controller>()[i];
-            int score = player.currency;
+            int score = player.bookshelves;
             PlayerPrefs.SetInt("Player" + player.playerNumber + "_Score", score);
         }
 
