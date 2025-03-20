@@ -14,6 +14,7 @@ public class Player_Controller : MonoBehaviour
     public Tilemap groundTilemap;
     [SerializeField] Tilemap oceanTilemap;
     public GameObject settlementPrefab;
+    public GameObject farmPrefab;
 
     [Header("Player Info")]
     public int playerNumber;
@@ -25,6 +26,7 @@ public class Player_Controller : MonoBehaviour
     public int wood = 0;
     public int food = 0;
     public int settlements = 0;
+    public int farms = 0;
 
     [Header("Movement Attributes")]
     [SerializeField] float _moveSpeed = 5f;
@@ -32,8 +34,9 @@ public class Player_Controller : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField] Rigidbody2D _rb;
 
-    int winCurrency = 20;
+    int winCurrency = 50;
     public int settlementWoodCost = 10;
+    public int farmMeatCost = 10;
 
     private PlayerCurrency playerCurrencyUI;
     private PlayerNumber playerNumberUI;
