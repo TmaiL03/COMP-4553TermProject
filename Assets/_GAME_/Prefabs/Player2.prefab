@@ -730,6 +730,8 @@ MonoBehaviour:
   currency: 0
   moves: 0
   wood: 0
+  food: 0
+  settlements: 0
   _moveSpeed: 5
   _rb: {fileID: 3156439685469786520}
   settlementWoodCost: 10
@@ -765,7 +767,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.02631706}
+  m_Offset: {x: 0, y: 0.15}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -776,7 +778,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.61, y: 0.625934}
+  m_Size: {x: 0.51, y: 0.45}
   m_EdgeRadius: 0
 --- !u!212 &3742241065676814359
 SpriteRenderer:

@@ -23,6 +23,7 @@ public class Player_Controller : MonoBehaviour
     public int currency = 0;
     public int moves = 0;
     public int wood = 0;
+    public int food = 0;
     public int settlements = 0;
 
     [Header("Movement Attributes")]
@@ -38,6 +39,7 @@ public class Player_Controller : MonoBehaviour
     private PlayerNumber playerNumberUI;
     private PlayerMoves playerMovesUI;
     private PlayerWood playerWoodUI;
+    private PlayerFood playerFoodUI;
 
     private PlayerMovement controls;
 
@@ -84,6 +86,7 @@ public class Player_Controller : MonoBehaviour
         playerNumberUI = FindObjectOfType<PlayerNumber>();
         playerMovesUI = FindObjectOfType<PlayerMoves>();
         playerWoodUI = FindObjectOfType<PlayerWood>();
+        playerFoodUI = FindObjectOfType<PlayerFood>();
 
         UpdateCurrencyUI();
         UpdatePlayerNumberUI();
@@ -164,6 +167,14 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
+    public void UpdateFoodUI()
+    {
+        if (playerFoodUI != null)
+        {
+            playerFoodUI.UpdateFoodUI(food);
+        }
+    }
+
     public void SaveScores()
     {
         for (int i = 0; i < FindObjectsOfType<Player_Controller>().Length; i++)
@@ -212,6 +223,12 @@ public class Player_Controller : MonoBehaviour
     {
         wood += amount;
         UpdateWoodUI();
+    }
+
+    public void addFood(int amount)
+    {
+        food += amount;
+        UpdateFoodUI();
     }
 
     public void move()
