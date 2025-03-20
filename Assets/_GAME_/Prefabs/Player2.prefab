@@ -27,14 +27,14 @@ RectTransform:
   m_GameObject: {fileID: 868293894473167564}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 11.686943}
-  m_LocalScale: {x: 1.3333334, y: 1.3333334, z: 1.3333334}
+  m_LocalScale: {x: 1.3412875, y: 1.3253793, z: 1.3333334}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6267401421822987618}
+  m_Father: {fileID: 6231815348698822299}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.75}
+  m_AnchoredPosition: {x: 0.005999883, y: 1.9280094}
   m_SizeDelta: {x: 0.9714, y: 0.2793}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &6178553190548457933
@@ -513,6 +513,7 @@ Transform:
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4515295835851686781}
   - {fileID: 8840638810137105088}
   - {fileID: 6267401421822987618}
   m_Father: {fileID: 0}
@@ -580,16 +581,20 @@ MonoBehaviour:
   groundTilemap: {fileID: 0}
   oceanTilemap: {fileID: 0}
   settlementPrefab: {fileID: 1915085955984395257, guid: 9641ba8326d334e48a3807441c1d72fe, type: 3}
+  farmPrefab: {fileID: 0}
   playerNumber: 2
   turn: 0
   currency: 0
   moves: 0
   wood: 0
+  food: 0
   settlements: 0
+  farms: 0
   infection: 0
   _moveSpeed: 5
   _rb: {fileID: 3080448842649479620}
   settlementWoodCost: 10
+  farmMeatCost: 10
 --- !u!61 &7596136893630504482
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -981,7 +986,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5455762979500058388}
-  - component: {fileID: 997377886176487763}
+  - component: {fileID: 3742241065676814359}
   m_Layer: 0
   m_Name: hood
   m_TagString: Untagged
@@ -1004,124 +1009,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8458428603379522580}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &6727415965480049745
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7541304634105538416}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6bced8ae578df4db6bd5b1a523944f7d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!50 &3156439685469786520
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7541304634105538416}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 1
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 4
---- !u!114 &2743618664870920804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7541304634105538416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886fd66336d53ba4abd173fa91f37d12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundTilemap: {fileID: 0}
-  oceanTilemap: {fileID: 0}
-  settlementPrefab: {fileID: 1915085955984395257, guid: 9641ba8326d334e48a3807441c1d72fe, type: 3}
-  playerNumber: 0
-  turn: 0
-  currency: 0
-  moves: 0
-  wood: 0
-  food: 0
-  settlements: 0
-  _moveSpeed: 5
-  _rb: {fileID: 3156439685469786520}
-  settlementWoodCost: 10
---- !u!61 &7684062501320067455
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7541304634105538416}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.15}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.51, y: 0.45}
-  m_EdgeRadius: 0
 --- !u!212 &3742241065676814359
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1204,7 +1091,6 @@ Transform:
   m_LocalScale: {x: 1.0059656, y: 0.9940344, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4515295835851686781}
   - {fileID: 8458428603379522580}
   - {fileID: 4877232136089369182}
   - {fileID: 8109045016819775582}

@@ -436,6 +436,7 @@ Transform:
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4705229799288129728}
   - {fileID: 3974765326335775450}
   - {fileID: 6458137611176405567}
   m_Father: {fileID: 0}
@@ -503,6 +504,7 @@ MonoBehaviour:
   groundTilemap: {fileID: 0}
   oceanTilemap: {fileID: 0}
   settlementPrefab: {fileID: 1915085955984395257, guid: 9641ba8326d334e48a3807441c1d72fe, type: 3}
+  farmPrefab: {fileID: 0}
   playerNumber: 0
   turn: 0
   currency: 0
@@ -510,10 +512,12 @@ MonoBehaviour:
   wood: 0
   food: 0
   settlements: 0
+  farms: 0
   infection: 0
   _moveSpeed: 5
   _rb: {fileID: 4420115701777915557}
   settlementWoodCost: 10
+  farmMeatCost: 10
 --- !u!61 &4120028895780357509
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -726,7 +730,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4705229799288129728}
   - {fileID: 6527794190696432195}
   - {fileID: 5064876258416279915}
   - {fileID: 2196921066396930370}
@@ -817,11 +820,11 @@ RectTransform:
   m_LocalScale: {x: 1.3333334, y: 1.3333334, z: 1.3333334}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6458137611176405567}
+  m_Father: {fileID: 784818925164792787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.005999883, y: 0.7600001}
+  m_AnchoredPosition: {x: 0, y: 1.95}
   m_SizeDelta: {x: 0.9714, y: 0.2793}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &9169894871889316402
