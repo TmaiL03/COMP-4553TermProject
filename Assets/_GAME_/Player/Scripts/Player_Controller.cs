@@ -25,6 +25,8 @@ public class Player_Controller : MonoBehaviour
     public int wood = 0;
     public int settlements = 0;
 
+    public int infection = 0;
+
     [Header("Movement Attributes")]
     [SerializeField] float _moveSpeed = 5f;
     
@@ -95,6 +97,7 @@ public class Player_Controller : MonoBehaviour
     // Moves player
     private void Move(Vector2 direction) {
         if (CanMove(direction)) {
+            toggleInfection();
             if (direction.x > 0)
             {
                 transform.localScale = new Vector3(-0.75f, 0.75f, 0.75f);
@@ -135,10 +138,32 @@ public class Player_Controller : MonoBehaviour
             return false;
         } else 
         {
-            if (moves > 0)
+            if (moves > 0) {
+                if (groundTilemap.GetColor(gridPosition) == Color.red && currency > 0) {
+                    Debug.Log("increase infect");
+                    infection += 1;
+                } else if (!(groundTilemap.GetColor(gridPosition) == Color.red) && infection >= 0) {
+                    Debug.Log("decrease infect");
+                    infection -= 1;
+                }
+                Debug.Log("calling infect");
                 return true;
-            else
+            } else
                 return false;
+        }
+    }
+
+    public void toggleInfection() {
+        GameObject infectionLevel = transform.Find("Body/Infection").gameObject;
+        Debug.Log("Toggle infect" + infection);
+        if (infection > 0) {
+            Debug.Log("Toggle infect true");
+            TextMeshPro infectionText = infectionLevel.GetComponentInChildren<TextMeshPro>();
+            infectionText.text = infection.ToString();
+            infectionLevel.SetActive(true);
+        } else {
+            Debug.Log("Toggle infect false");
+            infectionLevel.SetActive(false);
         }
     }
 

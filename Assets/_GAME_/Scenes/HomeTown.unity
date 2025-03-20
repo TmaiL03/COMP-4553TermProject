@@ -1548,6 +1548,9 @@ MonoBehaviour:
   - {fileID: 5979602198180271805, guid: a1b0152880a20554781f47aa63138ad3, type: 3}
   - {fileID: 5638700784289258895, guid: 31ff22011acd6dd4289f3a953e4dca4c, type: 3}
   - {fileID: 7783267341390379490, guid: ba46c0b8464abfb4984129be8d798227, type: 3}
+  tilemap: {fileID: 0}
+  tileToChange: {fileID: 0}
+  changeColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &545782688
 GameObject:
   m_ObjectHideFlags: 0
@@ -7066,7 +7069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   players:
   - {fileID: 8095943105482984998, guid: b172892ce954b1449883d2deafdf2acf, type: 3}
-  - {fileID: 7541304634105538416, guid: 62366548a7d0aaa47b3d6c3107fc7ff8, type: 3}
+  - {fileID: 3552260993551122223, guid: 62366548a7d0aaa47b3d6c3107fc7ff8, type: 3}
   - {fileID: 8146341944533705587, guid: f117688ad27baaa44a9a9409fb530799, type: 3}
   - {fileID: 1255417662735655236, guid: 16f0bdf5e4463bb4bbae17a06d1d2df6, type: 3}
   logic: {fileID: 525649496}
