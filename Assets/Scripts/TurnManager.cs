@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using static UnityEditor.Experimental.GraphView.GraphView;
+//using System.Numerics;
 
 public class TurnManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class TurnManager : MonoBehaviour
     public TextMeshProUGUI turnText;
     private int currentPlayerIndex = 0;
     public GameObject notEnoughWoodPanel;
+    public GameObject[] settlements;
 
     void Start()
     {
@@ -71,10 +73,10 @@ public class TurnManager : MonoBehaviour
         players[currentPlayerIndex].SetInputState(true);
         players[currentPlayerIndex].turn = true;
 
-        int settlements = players[currentPlayerIndex].settlements;
+        int numOfSettlements = players[currentPlayerIndex].settlements;
 
         // For each settlement a player has, they get 3 coins at the start of each turn
-        for (int i = 0; i < settlements; i++)
+        for (int i = 0; i < numOfSettlements; i++)
         {
             players[currentPlayerIndex].currency += 3;
         }
@@ -89,10 +91,12 @@ public class TurnManager : MonoBehaviour
     {
         if (players[currentPlayerIndex].wood >= players[currentPlayerIndex].settlementWoodCost)
         {
-            Vector3 playerPosition = players[currentPlayerIndex].transform.position;
-            Vector3 tilePosition = players[currentPlayerIndex].groundTilemap.GetCellCenterWorld(players[currentPlayerIndex].groundTilemap.WorldToCell(playerPosition));
+            Player_Controller player = players[currentPlayerIndex];
 
-            Instantiate(players[currentPlayerIndex].settlementPrefab, tilePosition, Quaternion.identity);
+            Vector3 playerPosition = player.transform.position;
+            Vector3 tilePosition = player.groundTilemap.GetCellCenterWorld(player.groundTilemap.WorldToCell(playerPosition));
+
+            Instantiate(settlements[player.playerNumber - 1], tilePosition, Quaternion.identity);
 
             players[currentPlayerIndex].settlements += 1;
             players[currentPlayerIndex].wood -= players[currentPlayerIndex].settlementWoodCost;

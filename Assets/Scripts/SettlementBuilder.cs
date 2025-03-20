@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 
 public class SettlementBuilder : MonoBehaviour
 {
-    [SerializeField] GameObject settlementPrefab;
+    public GameObject[] settlements;
     int settlementWoodCost = 10;
     private TurnManager turnManager;
 
@@ -25,7 +25,9 @@ public class SettlementBuilder : MonoBehaviour
             Vector3 playerPosition = player.transform.position;
             Vector3 tilePosition = player.groundTilemap.GetCellCenterWorld(player.groundTilemap.WorldToCell(playerPosition));
 
-            Instantiate(settlementPrefab, tilePosition, Quaternion.identity);
+            Debug.Log("Player Number: " + player.playerNumber);
+
+            Instantiate(settlements[player.playerNumber - 1], tilePosition, Quaternion.identity);
 
             player.wood -= settlementWoodCost;
             player.UpdateWoodUI();

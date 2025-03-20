@@ -945,7 +945,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab0e2b840d7357c4fb6164ee85e94198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settlementPrefab: {fileID: 1915085955984395257, guid: 9641ba8326d334e48a3807441c1d72fe, type: 3}
+  settlements:
+  - {fileID: 5764712614044242055, guid: a8d523f6ef74a0345adbc75ba523aa7d, type: 3}
+  - {fileID: 5979602198180271805, guid: a1b0152880a20554781f47aa63138ad3, type: 3}
+  - {fileID: 5638700784289258895, guid: 31ff22011acd6dd4289f3a953e4dca4c, type: 3}
+  - {fileID: 7783267341390379490, guid: ba46c0b8464abfb4984129be8d798227, type: 3}
 --- !u!4 &402784531
 Transform:
   m_ObjectHideFlags: 0
@@ -1539,6 +1543,11 @@ MonoBehaviour:
   players: []
   turnText: {fileID: 1156442443}
   notEnoughWoodPanel: {fileID: 635366987}
+  settlements:
+  - {fileID: 5764712614044242055, guid: a8d523f6ef74a0345adbc75ba523aa7d, type: 3}
+  - {fileID: 5979602198180271805, guid: a1b0152880a20554781f47aa63138ad3, type: 3}
+  - {fileID: 5638700784289258895, guid: 31ff22011acd6dd4289f3a953e4dca4c, type: 3}
+  - {fileID: 7783267341390379490, guid: ba46c0b8464abfb4984129be8d798227, type: 3}
 --- !u!1 &545782688
 GameObject:
   m_ObjectHideFlags: 0
