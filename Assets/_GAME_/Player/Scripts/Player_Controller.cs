@@ -14,6 +14,7 @@ public class Player_Controller : MonoBehaviour
     public Tilemap groundTilemap;
     [SerializeField] Tilemap oceanTilemap;
     public GameObject settlementPrefab;
+    public GameObject farmPrefab;
 
     [Header("Player Info")]
     public int playerNumber;
@@ -23,7 +24,9 @@ public class Player_Controller : MonoBehaviour
     public int currency = 0;
     public int moves = 0;
     public int wood = 0;
+    public int food = 0;
     public int settlements = 0;
+    public int farms = 0;
 
     public int infection = 0;
 
@@ -33,13 +36,15 @@ public class Player_Controller : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField] Rigidbody2D _rb;
 
-    int winCurrency = 20;
+    int winCurrency = 50;
     public int settlementWoodCost = 10;
+    public int farmMeatCost = 10;
 
     private PlayerCurrency playerCurrencyUI;
     private PlayerNumber playerNumberUI;
     private PlayerMoves playerMovesUI;
     private PlayerWood playerWoodUI;
+    private PlayerFood playerFoodUI;
 
     private PlayerMovement controls;
 
@@ -86,6 +91,7 @@ public class Player_Controller : MonoBehaviour
         playerNumberUI = FindObjectOfType<PlayerNumber>();
         playerMovesUI = FindObjectOfType<PlayerMoves>();
         playerWoodUI = FindObjectOfType<PlayerWood>();
+        playerFoodUI = FindObjectOfType<PlayerFood>();
 
         UpdateCurrencyUI();
         UpdatePlayerNumberUI();
@@ -189,6 +195,14 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
+    public void UpdateFoodUI()
+    {
+        if (playerFoodUI != null)
+        {
+            playerFoodUI.UpdateFoodUI(food);
+        }
+    }
+
     public void SaveScores()
     {
         for (int i = 0; i < FindObjectsOfType<Player_Controller>().Length; i++)
@@ -237,6 +251,12 @@ public class Player_Controller : MonoBehaviour
     {
         wood += amount;
         UpdateWoodUI();
+    }
+
+    public void addFood(int amount)
+    {
+        food += amount;
+        UpdateFoodUI();
     }
 
     public void move()

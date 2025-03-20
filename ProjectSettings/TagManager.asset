@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ResourceSpawner
   - WoodSpawner
+  - FoodSpawner
   layers:
   - Default
   - TransparentFX

@@ -15,6 +15,7 @@ public class GameLogicScript : MonoBehaviour
 
     public int NumberOfResources = 3;
     public int AmountOfWood = 3;
+    public int AmountOfFood = 3;
 
     void Awake()
     {

@@ -4,15 +4,20 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
 using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine.SceneManagement;
 //using System.Numerics;
 
 public class TurnManager : MonoBehaviour
 {
+    private List<Vector3> settlementPositions = new List<Vector3>();
+    private List<Vector3> farmPositions = new List<Vector3>();
     public List<Player_Controller> players = new List<Player_Controller>();
     public TextMeshProUGUI turnText;
     private int currentPlayerIndex = 0;
     public GameObject notEnoughWoodPanel;
+    public GameObject notEnoughMeatPanel;
     public GameObject[] settlements;
+    public GameObject[] farms;
 
     public Tilemap tilemap;
     public Tile tileToChange;
@@ -27,6 +32,8 @@ public class TurnManager : MonoBehaviour
     void Start()
     {
         notEnoughWoodPanel.SetActive(false);
+        notEnoughMeatPanel.SetActive(false);
+
         StartCoroutine(WaitForPlayers());
 
         tilemap = GameObject.Find("Ground")?.GetComponent<Tilemap>();
@@ -114,6 +121,7 @@ public class TurnManager : MonoBehaviour
         players[currentPlayerIndex].turn = true;
 
         int numOfSettlements = players[currentPlayerIndex].settlements;
+        int numOfFarms = players[currentPlayerIndex].farms;
 
         // For each settlement a player has, they get 3 coins at the start of each turn
         for (int i = 0; i < numOfSettlements; i++)
@@ -121,8 +129,14 @@ public class TurnManager : MonoBehaviour
             players[currentPlayerIndex].currency += 3;
         }
 
+        for (int i = 0; i < numOfFarms; i++)
+        {
+            players[currentPlayerIndex].currency += 3;
+        }
+
         players[currentPlayerIndex].UpdateCurrencyUI();
         players[currentPlayerIndex].UpdateWoodUI();
+        players[currentPlayerIndex].UpdateFoodUI();
         players[currentPlayerIndex].UpdateMovesUI();
         UpdateTurnUI();
     }
@@ -136,28 +150,76 @@ public class TurnManager : MonoBehaviour
             Vector3 playerPosition = player.transform.position;
             Vector3 tilePosition = player.groundTilemap.GetCellCenterWorld(player.groundTilemap.WorldToCell(playerPosition));
 
+            if (settlementPositions.Contains(tilePosition) || farmPositions.Contains(tilePosition))
+            {
+                Debug.Log("Cannot Build Here! A Settlement is Already Placed on This Tile!");
+                return;
+            }
+
             Instantiate(settlements[player.playerNumber - 1], tilePosition, Quaternion.identity);
 
             players[currentPlayerIndex].settlements += 1;
             players[currentPlayerIndex].wood -= players[currentPlayerIndex].settlementWoodCost;
             players[currentPlayerIndex].UpdateWoodUI();
+            settlementPositions.Add(tilePosition);
         }
         else
         {
             Debug.Log("Not enough wood to build!");
 
             notEnoughWoodPanel.SetActive(true);
-            StartCoroutine(HidePanelAfterDelay(2f));
+            StartCoroutine(HideWoodPanelAfterDelay(2f));
         }
     }
 
-    private IEnumerator HidePanelAfterDelay(float delay)
+    public void TryBuildFarm()
+    {
+        if (players[currentPlayerIndex].food >= players[currentPlayerIndex].farmMeatCost)
+        {
+            Player_Controller player = players[currentPlayerIndex];
+
+            Vector3 playerPosition = player.transform.position;
+            Vector3 tilePosition = player.groundTilemap.GetCellCenterWorld(player.groundTilemap.WorldToCell(playerPosition));
+
+            if (settlementPositions.Contains(tilePosition) || farmPositions.Contains(tilePosition))
+            {
+                Debug.Log("Cannot Build Here! A Settlement or Farm is Already Placed on This Tile!");
+                return;
+            }
+
+            Instantiate(farms[player.playerNumber - 1], tilePosition, Quaternion.identity);
+
+            players[currentPlayerIndex].farms += 1;
+            players[currentPlayerIndex].food -= players[currentPlayerIndex].farmMeatCost;
+            players[currentPlayerIndex].UpdateFoodUI();
+            farmPositions.Add(tilePosition);
+        }
+        else
+        {
+            Debug.Log("Not enough meat to build!");
+
+            notEnoughMeatPanel.SetActive(true);
+            StartCoroutine(HideFoodPanelAfterDelay(2f));
+        }
+    }
+
+    private IEnumerator HideWoodPanelAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
 
         if (notEnoughWoodPanel != null)
         {
             notEnoughWoodPanel.SetActive(false);
+        }
+    }
+
+    private IEnumerator HideFoodPanelAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (notEnoughMeatPanel != null)
+        {
+            notEnoughMeatPanel.SetActive(false);
         }
     }
 
@@ -169,7 +231,11 @@ public class TurnManager : MonoBehaviour
             turnText.text = "Player: " + (players[currentPlayerIndex].playerNumber);
         }
     }
-
+    public void GoToScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+    
     public IEnumerator SpreadBlight() {
         int currentQueueSize = spreadQueue.Count;
 
