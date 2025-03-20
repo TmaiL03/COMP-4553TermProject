@@ -23,6 +23,7 @@ public class Player_Controller : MonoBehaviour
     public int currency = 0;
     public int moves = 0;
     public int wood = 0;
+    public int settlements = 0;
 
     [Header("Movement Attributes")]
     [SerializeField] float _moveSpeed = 5f;

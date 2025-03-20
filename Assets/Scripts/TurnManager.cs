@@ -71,6 +71,14 @@ public class TurnManager : MonoBehaviour
         players[currentPlayerIndex].SetInputState(true);
         players[currentPlayerIndex].turn = true;
 
+        int settlements = players[currentPlayerIndex].settlements;
+
+        // For each settlement a player has, they get 3 coins at the start of each turn
+        for (int i = 0; i < settlements; i++)
+        {
+            players[currentPlayerIndex].currency += 3;
+        }
+
         players[currentPlayerIndex].UpdateCurrencyUI();
         players[currentPlayerIndex].UpdateWoodUI();
         players[currentPlayerIndex].UpdateMovesUI();
@@ -86,6 +94,7 @@ public class TurnManager : MonoBehaviour
 
             Instantiate(players[currentPlayerIndex].settlementPrefab, tilePosition, Quaternion.identity);
 
+            players[currentPlayerIndex].settlements += 1;
             players[currentPlayerIndex].wood -= players[currentPlayerIndex].settlementWoodCost;
             players[currentPlayerIndex].UpdateWoodUI();
         }
