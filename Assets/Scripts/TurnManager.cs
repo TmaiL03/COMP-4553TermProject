@@ -7,6 +7,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class TurnManager : MonoBehaviour
 {
+    private List<Vector3> settlementPositions = new List<Vector3>();
     public List<Player_Controller> players = new List<Player_Controller>();
     public TextMeshProUGUI turnText;
     private int currentPlayerIndex = 0;
@@ -96,11 +97,18 @@ public class TurnManager : MonoBehaviour
             Vector3 playerPosition = player.transform.position;
             Vector3 tilePosition = player.groundTilemap.GetCellCenterWorld(player.groundTilemap.WorldToCell(playerPosition));
 
+            if (settlementPositions.Contains(tilePosition))
+            {
+                Debug.Log("Cannot Build Here! A Settlement is Already Placed on This Tile!");
+                return;
+            }
+
             Instantiate(settlements[player.playerNumber - 1], tilePosition, Quaternion.identity);
 
             players[currentPlayerIndex].settlements += 1;
             players[currentPlayerIndex].wood -= players[currentPlayerIndex].settlementWoodCost;
             players[currentPlayerIndex].UpdateWoodUI();
+            settlementPositions.Add(tilePosition);
         }
         else
         {
