@@ -788,6 +788,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resource: {fileID: 7096975567404503679, guid: 939d08747c0f77b40b5d4d90870e4836, type: 3}
   logic: {fileID: 525649496}
+  foolsProb: 3
 --- !u!4 &512448419
 Transform:
   m_ObjectHideFlags: 0

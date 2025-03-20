@@ -264,6 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worth_text: {fileID: 7139923422589719323}
+  foolsProb: 2
+  fools: 0
 --- !u!50 &3346009823738167524
 Rigidbody2D:
   serializedVersion: 4
