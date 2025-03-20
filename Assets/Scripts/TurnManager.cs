@@ -37,6 +37,7 @@ public class TurnManager : MonoBehaviour
                 UpdateTurnUI();
                 players[currentPlayerIndex].UpdateCurrencyUI();
                 players[currentPlayerIndex].UpdateMovesUI();
+                players[currentPlayerIndex].UpdateWoodUI();
                 players[currentPlayerIndex].UpdatePlayerNumberUI();
             } else
             {
@@ -69,6 +70,7 @@ public class TurnManager : MonoBehaviour
         players[currentPlayerIndex].turn = true;
 
         players[currentPlayerIndex].UpdateCurrencyUI();
+        players[currentPlayerIndex].UpdateWoodUI();
         players[currentPlayerIndex].UpdateMovesUI();
         UpdateTurnUI();
     }

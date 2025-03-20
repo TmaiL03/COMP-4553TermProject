@@ -14,12 +14,13 @@ public class GameLogicScript : MonoBehaviour
     public Tile[] TileList;
 
     public int NumberOfResources = 3;
+    public int AmountOfWood = 3;
 
     void Awake()
     {
 
         NumberOfPlayers = MainMenu.playerCount;
-        Debug.Log("Number of Players Set to: " + NumberOfPlayers);
+        //Debug.Log("Number of Players Set to: " + NumberOfPlayers);
 
     }
 
@@ -65,7 +66,7 @@ public class GameLogicScript : MonoBehaviour
 
         } else {
 
-            Debug.LogWarning("No tile found at position " + position);
+            //Debug.LogWarning("No tile found at position " + position);
 
         }
 

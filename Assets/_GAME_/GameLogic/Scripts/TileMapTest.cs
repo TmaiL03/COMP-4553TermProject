@@ -24,7 +24,7 @@ public class TileMapTest : MonoBehaviour
             myTileMap.SetTile(position, TileList[Random.Range(0, TileList.Length)]);
         } else {
 
-            Debug.LogWarning("No tile found at position " + position);
+            //Debug.LogWarning("No tile found at position " + position);
 
         }
 

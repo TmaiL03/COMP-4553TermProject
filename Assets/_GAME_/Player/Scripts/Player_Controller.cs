@@ -21,6 +21,7 @@ public class Player_Controller : MonoBehaviour
     [Header("Player Inventory")]
     public int currency = 0;
     public int moves = 0;
+    public int wood = 0;
 
     [Header("Movement Attributes")]
     [SerializeField] float _moveSpeed = 5f;
@@ -33,6 +34,7 @@ public class Player_Controller : MonoBehaviour
     private PlayerCurrency playerCurrencyUI;
     private PlayerNumber playerNumberUI;
     private PlayerMoves playerMovesUI;
+    private PlayerWood playerWoodUI;
 
     private PlayerMovement controls;
 
@@ -78,6 +80,7 @@ public class Player_Controller : MonoBehaviour
         playerCurrencyUI = FindObjectOfType<PlayerCurrency>();
         playerNumberUI = FindObjectOfType<PlayerNumber>();
         playerMovesUI = FindObjectOfType<PlayerMoves>();
+        playerWoodUI = FindObjectOfType<PlayerWood>();
 
         UpdateCurrencyUI();
         UpdatePlayerNumberUI();
@@ -150,6 +153,14 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
+    public void UpdateWoodUI()
+    {
+        if (playerWoodUI != null)
+        {
+            playerWoodUI.UpdateWoodUI(wood);
+        }
+    }
+
     public void SaveScores()
     {
         for (int i = 0; i < FindObjectsOfType<Player_Controller>().Length; i++)
@@ -192,6 +203,12 @@ public class Player_Controller : MonoBehaviour
     {
         currency += amount;
         UpdateCurrencyUI();
+    }
+
+    public void addWood(int amount)
+    {
+        wood += amount;
+        UpdateWoodUI();
     }
 
     public void move()
