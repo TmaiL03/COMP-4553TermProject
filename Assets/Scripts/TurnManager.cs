@@ -20,6 +20,7 @@ public class TurnManager : MonoBehaviour
     public GameObject notEnoughWoodPanel;
     public GameObject notEnoughMeatPanel;
     public GameObject notEnoughGoldPanel;
+    public GameObject storyPanel;
 
     public GameObject[] settlements;
     public GameObject[] farms;
@@ -34,12 +35,22 @@ public class TurnManager : MonoBehaviour
     private Queue<Vector3Int> spreadQueue = new Queue<Vector3Int>();
     private HashSet<Vector3Int> visitedTiles = new HashSet<Vector3Int>();
 
+    public TextMeshProUGUI storyUI;
+
+    string[] apocalypseStory =
+    {
+        "Fragment 1",
+        "Fragment 2",
+        "Fragment 3"
+    };
+
 
     void Start()
     {
         notEnoughWoodPanel.SetActive(false);
         notEnoughMeatPanel.SetActive(false);
         notEnoughGoldPanel.SetActive(false);
+        storyPanel.SetActive(false);
 
         StartCoroutine(WaitForPlayers());
 
@@ -235,6 +246,13 @@ public class TurnManager : MonoBehaviour
 
             players[currentPlayerIndex].bookshelves += 1;
             players[currentPlayerIndex].currency -= players[currentPlayerIndex].bookshelfGoldCost;
+
+            // Play story fragment based on how many are built
+            if (players[currentPlayerIndex].bookshelves <= apocalypseStory.Length)
+            {
+                DisplayStory(apocalypseStory[players[currentPlayerIndex].bookshelves - 1]);
+            }
+                
             players[currentPlayerIndex].UpdateCurrencyUI();
             players[currentPlayerIndex].UpdateBookshelfUI();
             bookshelfPositions.Add(tilePosition);
@@ -245,6 +263,24 @@ public class TurnManager : MonoBehaviour
 
             notEnoughGoldPanel.SetActive(true);
             StartCoroutine(HideGoldPanelAfterDelay(2f));
+        }
+    }
+
+    void DisplayStory(string storyText)
+    {
+        storyUI.text = storyText;
+        storyPanel.SetActive(true);
+
+        StartCoroutine(HideStoryPanelAfterDelay(5f));
+    }
+
+    private IEnumerator HideStoryPanelAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (storyPanel != null)
+        {
+            storyPanel.SetActive(false);
         }
     }
 

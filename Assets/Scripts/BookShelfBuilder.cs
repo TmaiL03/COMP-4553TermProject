@@ -8,7 +8,7 @@ using UnityEngine.Tilemaps;
 public class BookShelfBuilder : MonoBehaviour
 {
     public GameObject[] bookshelves;
-    int bookshelfGoldCost = 10;
+    int bookshelfGoldCost = 30;
     private TurnManager turnManager;
 
     private void Start()
@@ -31,6 +31,7 @@ public class BookShelfBuilder : MonoBehaviour
 
             player.currency -= bookshelfGoldCost;
             player.UpdateCurrencyUI();
+            player.UpdateBookshelfUI();
         }
         else
         {

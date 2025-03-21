@@ -179,12 +179,6 @@ public class Player_Controller : MonoBehaviour
         if (playerCurrencyUI != null)
         {
             playerCurrencyUI.UpdateCurrencyUI(currency);
-
-            if (bookshelves >= winNumOfBookshelves)
-            {
-                SaveScores();
-                GoToScene("GameOver");
-            }
         }
     }
 
@@ -209,6 +203,12 @@ public class Player_Controller : MonoBehaviour
         if (playerBookshelfUI != null)
         {
             playerBookshelfUI.UpdateBookshelfUI(bookshelves);
+        }
+
+        if (bookshelves >= winNumOfBookshelves)
+        {
+            SaveScores();
+            GoToScene("GameOver");
         }
     }
 
