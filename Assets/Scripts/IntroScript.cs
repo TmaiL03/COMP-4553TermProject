@@ -10,6 +10,9 @@ public class IntroScript : MonoBehaviour
     [Header("Story Setup")]
     public TMP_Text storyText;
     public float typingSpeed = 0.05f;
+    private string fullText;
+    private bool isTyping = false;
+    private int currentLineIndex = 0;
 
     private string[] introStoryLines = {
         "We woke up on an island. No memory of how we got here, or why. No memories whatsoever. Not even our names.",
@@ -21,25 +24,52 @@ public class IntroScript : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(DisplayStory(introStoryLines));
+        StartCoroutine(DisplayNextLine());
     }
 
-    private IEnumerator DisplayStory(string[] storyLines)
+    private IEnumerator DisplayNextLine()
     {
-        foreach (string line in storyLines)
+        isTyping = true;
+        fullText = introStoryLines[currentLineIndex];
+        storyText.text = "";
+            
+        foreach (char letter in fullText.ToCharArray())
         {
-            storyText.text = "";
-            foreach (char letter in line.ToCharArray())
+            if (!isTyping)
             {
-                storyText.text += letter;
-                yield return new WaitForSeconds(typingSpeed);
+                storyText.text = fullText;
+                break;
             }
 
-            yield return new WaitUntil(() => Input.anyKeyDown);
+            storyText.text += letter;
+            yield return new WaitForSeconds(typingSpeed);
         }
 
-        yield return new WaitForSeconds(1f);
+        isTyping = false;
+    }
 
-        SceneManager.LoadScene("Instructions");
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0) || Input.anyKeyDown)
+        {
+            if (isTyping)
+            {
+                isTyping = false;
+                storyText.text = fullText;
+            }
+            else
+            {
+                currentLineIndex++;
+
+                if (currentLineIndex < introStoryLines.Length)
+                {
+                    StartCoroutine(DisplayNextLine());
+                }
+                else
+                {
+                    SceneManager.LoadScene("Instructions");
+                }
+            }
+        }
     }
 }

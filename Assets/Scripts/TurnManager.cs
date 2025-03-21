@@ -280,7 +280,7 @@ public class TurnManager : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }        
 
-        StartCoroutine(HideStoryPanelAfterDelay(5f));
+        StartCoroutine(HideStoryPanelAfterDelay(2f));
     }
 
     private IEnumerator HideStoryPanelAfterDelay(float delay)

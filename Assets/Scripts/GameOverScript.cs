@@ -10,6 +10,9 @@ public class GameOverScript : MonoBehaviour
     [Header("Story Setup")]
     public TMP_Text storyText;
     public float typingSpeed = 0.05f;
+    private string fullText;
+    private bool isTyping = false;
+    private int currentLineIndex = 0;
 
     private string[] gameOverStoryLines = {
         "The world fell silent. Cities turned to ash. The Blight spread across the world before we even had a chance to mourn it. We couldn't outrun it. We couldn't hide.",
@@ -21,25 +24,52 @@ public class GameOverScript : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(DisplayStory(gameOverStoryLines));
+        StartCoroutine(DisplayNextLine());
     }
 
-    private IEnumerator DisplayStory(string[] storyLines)
+    private IEnumerator DisplayNextLine()
     {
-        foreach (string line in storyLines)
+        isTyping = true;
+        fullText = gameOverStoryLines[currentLineIndex];
+        storyText.text = "";
+
+        foreach (char letter in fullText.ToCharArray())
         {
-            storyText.text = "";
-            foreach (char letter in line.ToCharArray())
+            if (!isTyping)
             {
-                storyText.text += letter;
-                yield return new WaitForSeconds(typingSpeed);
+                storyText.text = fullText;
+                break;
             }
 
-            yield return new WaitUntil(() => Input.anyKeyDown);
+            storyText.text += letter;
+            yield return new WaitForSeconds(typingSpeed);
         }
 
-        yield return new WaitForSeconds(1f);
+        isTyping = false;
+    }
 
-        SceneManager.LoadScene("GameOver");
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0) || Input.anyKeyDown)
+        {
+            if (isTyping)
+            {
+                isTyping = false;
+                storyText.text = fullText;
+            }
+            else
+            {
+                currentLineIndex++;
+
+                if (currentLineIndex < gameOverStoryLines.Length)
+                {
+                    StartCoroutine(DisplayNextLine());
+                }
+                else
+                {
+                    SceneManager.LoadScene("GameOver");
+                }
+            }
+        }
     }
 }

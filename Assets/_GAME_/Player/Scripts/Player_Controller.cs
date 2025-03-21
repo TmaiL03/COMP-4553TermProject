@@ -209,9 +209,10 @@ public class Player_Controller : MonoBehaviour
         {
             SaveScores();
 
-            StartCoroutine(WaitAndGoToGameOver(10f));
+            StartCoroutine(WaitAndGoToGameOver(12f));
         }
     }
+
     private IEnumerator WaitAndGoToGameOver(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
