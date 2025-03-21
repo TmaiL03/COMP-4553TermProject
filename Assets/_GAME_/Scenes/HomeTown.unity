@@ -1134,8 +1134,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.6694, y: 1.1128}
-  m_SizeDelta: {x: 900.0059, y: 92.2898}
+  m_AnchoredPosition: {x: -1.6694, y: -0.0001}
+  m_SizeDelta: {x: 900.0059, y: 110.096}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &327537432
 MonoBehaviour:
@@ -2195,6 +2195,7 @@ MonoBehaviour:
   tileToChange: {fileID: 0}
   changeColor: {r: 1, g: 0, b: 0, a: 1}
   storyUI: {fileID: 327537432}
+  typingSpeed: 0.05
 --- !u!1 &545782688
 GameObject:
   m_ObjectHideFlags: 0
@@ -3902,8 +3903,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000030517578, y: -155.2477}
-  m_SizeDelta: {x: 0, y: -310.4955}
+  m_AnchoredPosition: {x: 0.000030517578, y: -144.67526}
+  m_SizeDelta: {x: 0, y: -289.3506}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &560400425
 MonoBehaviour:

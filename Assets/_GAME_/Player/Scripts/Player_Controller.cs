@@ -209,7 +209,7 @@ public class Player_Controller : MonoBehaviour
         {
             SaveScores();
 
-            StartCoroutine(WaitAndGoToGameOver(5f));
+            StartCoroutine(WaitAndGoToGameOver(10f));
         }
     }
     private IEnumerator WaitAndGoToGameOver(float waitTime)

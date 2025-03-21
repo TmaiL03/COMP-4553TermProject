@@ -40,11 +40,11 @@ public class TurnManager : MonoBehaviour
 
     string[] apocalypseStory =
     {
-        "Fragment 1",
-        "Fragment 2",
-        "Fragment 3"
+        "They told us we had time. A hundred years, they said. That it wouldn't reach us. That we'd be fine... They were wrong.",
+        "The ships were distant-just shadows beyond the stars. Light-years away, they assured us. They called them The Watchers. We called it the end.",
+        "Their ships landed within days of our discovery. With them came something sinister. Something alive. We don't know if it's a weapon or a plague. We only know its name-The Blight."
     };
-
+    
 
     void Start()
     {
