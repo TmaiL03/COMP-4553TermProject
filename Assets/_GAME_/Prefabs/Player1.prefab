@@ -1105,6 +1105,7 @@ MonoBehaviour:
   oceanTilemap: {fileID: 0}
   settlementPrefab: {fileID: 1915085955984395257, guid: 9641ba8326d334e48a3807441c1d72fe, type: 3}
   farmPrefab: {fileID: 0}
+  bookshelfPrefab: {fileID: 0}
   playerNumber: 0
   turn: 0
   currency: 0
@@ -1113,11 +1114,13 @@ MonoBehaviour:
   food: 0
   settlements: 0
   farms: 0
+  bookshelves: 0
   infection: 0
   _moveSpeed: 5
   _rb: {fileID: 5361098695492872181}
   settlementWoodCost: 10
   farmMeatCost: 10
+  bookshelfGoldCost: 10
 --- !u!61 &6450192920559366787
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1241,7 +1244,7 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 37276
+  m_InstanceId: 51368
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
