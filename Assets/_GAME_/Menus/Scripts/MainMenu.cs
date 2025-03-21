@@ -10,13 +10,18 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        playerCountDropdown.onValueChanged.AddListener(UpdatePlayerCount);
+        if (playerCountDropdown != null)
+        {
+            playerCountDropdown.onValueChanged.AddListener(UpdatePlayerCount);
+        }
     }
 
     public void UpdatePlayerCount(int index)
     {
         playerCount = index + 2;
-        Debug.Log("Player Count Set To: " + playerCount);
+        PlayerPrefs.SetInt("PlayerCount", playerCount);
+        PlayerPrefs.Save();
+        Debug.Log("Player Count Saved: " + playerCount);
     }
 
     public void GoToScene(string sceneName)

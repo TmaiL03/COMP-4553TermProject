@@ -56,19 +56,35 @@ public class PlayerSpawner : MonoBehaviour
         } while (!groundTilemap.HasTile(tilePosition)); // Ensure the tile is valid
 
         // Instantiate player at snapped world position
-        GameObject plyr = Instantiate(players[playerNum - 1], worldPosition, Quaternion.identity);
-        plyr.name = name;
+        Debug.Log("Plyr spawned" + players[playerNum - 1].name);
 
-        // Assign player number
-        Player_Controller playerController = plyr.GetComponent<Player_Controller>();
-        if (playerController != null) {
-            playerController.playerNumber = playerNum;
+        GameObject plyr = GameObject.Find(name);
+        if (plyr == null) {
+            GameObject player = Instantiate(players[playerNum - 1], worldPosition, Quaternion.identity);
+            player.name = name;
 
-            // Gives player 1 controls to move
-            if (playerNum == 1) {
-                playerController.turn = true;
+            Player_Controller playerController = player.GetComponent<Player_Controller>();
+            if (playerController != null) {
+                playerController.playerNumber = playerNum;
+
+                if (playerNum == 1) {
+                    playerController.turn = true;
+                }        
             }
+        } else {
+            Debug.LogWarning("Player already exists: " + name);
         }
+
+        // // Assign player number
+        // Player_Controller playerController = plyr.GetComponent<Player_Controller>();
+        // if (playerController != null) {
+        //     playerController.playerNumber = playerNum;
+
+        //     // Gives player 1 controls to move
+        //     if (playerNum == 1) {
+        //         playerController.turn = true;
+        //     }
+        // }
     }
 
 }
