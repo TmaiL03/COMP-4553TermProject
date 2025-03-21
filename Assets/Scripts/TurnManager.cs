@@ -36,6 +36,7 @@ public class TurnManager : MonoBehaviour
     private HashSet<Vector3Int> visitedTiles = new HashSet<Vector3Int>();
 
     public TextMeshProUGUI storyUI;
+    public float typingSpeed = 0.05f;
 
     string[] apocalypseStory =
     {
@@ -250,7 +251,7 @@ public class TurnManager : MonoBehaviour
             // Play story fragment based on how many are built
             if (players[currentPlayerIndex].bookshelves <= apocalypseStory.Length)
             {
-                DisplayStory(apocalypseStory[players[currentPlayerIndex].bookshelves - 1]);
+                StartCoroutine(DisplayStory(apocalypseStory[players[currentPlayerIndex].bookshelves - 1]));
             }
                 
             players[currentPlayerIndex].UpdateCurrencyUI();
@@ -266,10 +267,17 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    void DisplayStory(string storyText)
+    private IEnumerator DisplayStory(string storyText)
     {
-        storyUI.text = storyText;
+        storyUI.text = "";
         storyPanel.SetActive(true);
+
+        
+        foreach (char letter in storyText.ToCharArray())
+        {
+            storyUI.text += letter;
+            yield return new WaitForSeconds(typingSpeed);
+        }        
 
         StartCoroutine(HideStoryPanelAfterDelay(5f));
     }

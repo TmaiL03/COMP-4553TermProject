@@ -208,8 +208,14 @@ public class Player_Controller : MonoBehaviour
         if (bookshelves >= winNumOfBookshelves)
         {
             SaveScores();
-            GoToScene("GameOver");
+
+            StartCoroutine(WaitAndGoToGameOver(5f));
         }
+    }
+    private IEnumerator WaitAndGoToGameOver(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        GoToScene("GameOver");
     }
 
     public void SaveScores()
