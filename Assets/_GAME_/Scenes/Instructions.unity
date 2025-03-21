@@ -424,8 +424,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1619041359}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1589883729}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
         m_MethodName: GoToScene
         m_Mode: 5
         m_Arguments:
@@ -1755,7 +1755,7 @@ GameObject:
   - component: {fileID: 1589883728}
   - component: {fileID: 1589883729}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: GameController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1937,7 +1937,6 @@ GameObject:
   - component: {fileID: 1619041362}
   - component: {fileID: 1619041361}
   - component: {fileID: 1619041360}
-  - component: {fileID: 1619041359}
   m_Layer: 5
   m_Name: Main Canvas
   m_TagString: Untagged
@@ -1945,19 +1944,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1619041359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1619041358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f2e119938a8d9498676808e90e7066, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCountDropdown: {fileID: 0}
 --- !u!114 &1619041360
 MonoBehaviour:
   m_ObjectHideFlags: 0
