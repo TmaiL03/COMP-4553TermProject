@@ -163,6 +163,7 @@ public class TurnManager : MonoBehaviour
         players[currentPlayerIndex].UpdateWoodUI();
         players[currentPlayerIndex].UpdateFoodUI();
         players[currentPlayerIndex].UpdateMovesUI();
+        players[currentPlayerIndex].UpdateBookshelfUI();
         UpdateTurnUI();
     }
 

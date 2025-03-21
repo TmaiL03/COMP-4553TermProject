@@ -215,7 +215,7 @@ public class Player_Controller : MonoBehaviour
     private IEnumerator WaitAndGoToGameOver(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        GoToScene("GameOver");
+        GoToScene("GameOverScript");
     }
 
     public void SaveScores()
