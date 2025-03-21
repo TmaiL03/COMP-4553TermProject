@@ -40,6 +40,6 @@ public class IntroScript : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        SceneManager.LoadScene("HomeTown");
+        SceneManager.LoadScene("Instructions");
     }
 }
