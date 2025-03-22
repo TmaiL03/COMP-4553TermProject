@@ -100,7 +100,6 @@ public class Player_Controller : MonoBehaviour
         UpdateCurrencyUI();
         UpdatePlayerNumberUI();
         UpdateMovesUI();
-
         SetInputState(turn);
     }
 
@@ -120,8 +119,6 @@ public class Player_Controller : MonoBehaviour
                 transform.Find("Name").localScale = new Vector3(1.333333f, 1.333333f, 1.333333f);
             }
 
-            move();
-
             StartCoroutine(MoveSmooth(transform.position + (Vector3)direction));
         }
     }
@@ -139,6 +136,7 @@ public class Player_Controller : MonoBehaviour
         }
 
         transform.position = targetPosition;
+        move();
 
         animator.SetBool("isWalking", false);
     }
