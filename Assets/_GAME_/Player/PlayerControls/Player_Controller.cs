@@ -211,7 +211,7 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
-    private IEnumerator WaitAndGoToGameOver(float waitTime)
+    public IEnumerator WaitAndGoToGameOver(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
         GoToScene("GameOverScript");
