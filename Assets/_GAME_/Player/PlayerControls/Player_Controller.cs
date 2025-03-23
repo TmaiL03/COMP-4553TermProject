@@ -214,6 +214,7 @@ public class Player_Controller : MonoBehaviour
     public IEnumerator WaitAndGoToGameOver(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
+        Debug.Log("goto gameover");
         GoToScene("GameOverScript");
     }
 

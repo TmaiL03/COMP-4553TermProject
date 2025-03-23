@@ -64,12 +64,13 @@ public class TurnManager : MonoBehaviour
 
         InitializeTileLists();
         // Add the center tile to the spread queue to start spreading from there
-        spreadQueue.Enqueue(centerInGrid);
         visitedTiles.Add(centerInGrid);
         uninfectedTiles.Remove(centerInGrid);
 
         // Start the spreading process
-        StartCoroutine(SpreadBlight());
+        InfectTile(centerInGrid);
+        ExpandToAdjacentTiles(centerInGrid);
+        // StartCoroutine(SpreadBlight());
     }
 
     void InitializeTileLists() {
@@ -135,11 +136,13 @@ public class TurnManager : MonoBehaviour
 
         if (players[currentPlayerIndex].infection > 0) {
             int newCurrency = players[currentPlayerIndex].currency - players[currentPlayerIndex].infection;
+            players[currentPlayerIndex].infection = 0;
             if (newCurrency >= 0) {
                 players[currentPlayerIndex].currency = newCurrency;
             } else {
                 players[currentPlayerIndex].currency = 0;
-            }
+            } 
+            players[currentPlayerIndex].toggleInfection();
             players[currentPlayerIndex].UpdateCurrencyUI();
         }
 
@@ -360,41 +363,43 @@ public class TurnManager : MonoBehaviour
     public IEnumerator SpreadBlight() {
 
         int currentQueueSize = spreadQueue.Count;
-        Debug.Log("currentQueueSize" + currentQueueSize);
-        Debug.Log("currentQueueSize" + uninfectedTiles.Count);
+
         if (currentQueueSize == 0 && uninfectedTiles.Count != 0) {
             Vector3Int randomTile = uninfectedTiles[Random.Range(0, uninfectedTiles.Count)];
             spreadQueue.Enqueue(randomTile);
             uninfectedTiles.Remove(randomTile);
             currentQueueSize = spreadQueue.Count;
-        } else if (currentQueueSize == 0 && uninfectedTiles.Count == 0) {
-            Debug.Log("call Game Over");
-            StartCoroutine(players[currentPlayerIndex].WaitAndGoToGameOver(12f));
         }
+        // else if (currentQueueSize == 0 && uninfectedTiles.Count == 0) {
+        //     StartCoroutine(players[currentPlayerIndex].WaitAndGoToGameOver(12f));
+        // }
         
+        int tilesToSpread = 3; // We want to spread by exactly 2 tiles per turn
+        int tilesSpreadThisTurn = 0;
         // Process all tiles in the current cycle (all tiles that need to spread this turn)
-        for (int i = 0; i < currentQueueSize; i++)
+        while (tilesSpreadThisTurn < tilesToSpread && spreadQueue.Count > 0)
         {
             Vector3Int currentTile = spreadQueue.Dequeue();
-            // Debug.Log("currentQueueSize" + currentQueueSize);
-            // Change the current tile's color (or perform any modification you want)
-            TileBase tileBase = tilemap.GetTile(currentTile);
-            if (tileBase != null)
-            {
-                Tile currentTileObj = tileBase as Tile;
-                if (currentTileObj != null)
-                {
-                    Tile newTile = ScriptableObject.CreateInstance<Tile>();
-                    newTile.sprite = currentTileObj.sprite;  // Keep the same sprite
-                    newTile.color = changeColor;             // Set the new color
-
-                    // Set the new tile at the current position
-                    tilemap.SetTile(currentTile, newTile);
-                }
-            }
+            InfectTile(currentTile);
             ExpandToAdjacentTiles(currentTile);
+            tilesSpreadThisTurn++;
         }
         yield return null;
+    }
+
+    void InfectTile(Vector3Int tileToInfect) {
+        TileBase tileBase = tilemap.GetTile(tileToInfect);
+        if (tileBase != null) {
+            Tile currentTileObj = tileBase as Tile;
+            if (currentTileObj != null) {
+                Tile newTile = ScriptableObject.CreateInstance<Tile>();
+                newTile.sprite = currentTileObj.sprite;  // Keep the same sprite
+                newTile.color = changeColor;             // Set the new color
+
+                // Set the new tile at the current position
+                tilemap.SetTile(tileToInfect, newTile);
+            }
+        }
     }
 
     void ExpandToAdjacentTiles(Vector3Int currentTile) {
@@ -410,7 +415,7 @@ public class TurnManager : MonoBehaviour
         directions = directions.OrderBy(x => Random.value).ToArray();
         int retryCount = 0;
         // Iterate over each direction and add the neighboring tile to the spread queue
-        for (int i=0; i<1; i++)
+        for (int i=0; i<2; i++)
         {
             Vector3Int direction = directions[i];
             Vector3Int neighborPosition = currentTile + direction;
