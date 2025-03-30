@@ -111,12 +111,14 @@ public class Player_Controller : MonoBehaviour
             {
                 transform.localScale = new Vector3(-0.75f, 0.75f, 0.75f);
                 transform.Find("Name").localScale = new Vector3(-1.333333f, 1.333333f, 1.333333f);
+                transform.Find("Body/Infection").localScale = new Vector3(-0.4f, 0.4f, 0.4f);
 
             }
             else
             {
                 transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
                 transform.Find("Name").localScale = new Vector3(1.333333f, 1.333333f, 1.333333f);
+                transform.Find("Body/Infection").localScale = new Vector3(0.4f, 0.4f, 0.4f);
             }
 
             StartCoroutine(MoveSmooth(transform.position + (Vector3)direction));
