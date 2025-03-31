@@ -389,6 +389,13 @@ public class TurnManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public void GoToMainMenu()
+    {
+        PlayerPrefs.SetInt("PlayerCount", 2);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("MainMenu");
+    }
     
     public IEnumerator SpreadBlight() {
 
