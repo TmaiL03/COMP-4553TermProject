@@ -59,9 +59,12 @@ TagManager:
   - name: Grass
     uniqueID: 203263959
     locked: 0
-  - name: Character
-    uniqueID: 3441716411
-    locked: 0
   - name: Coin
     uniqueID: 342856965
+    locked: 0
+  - name: Buildings
+    uniqueID: 3278990953
+    locked: 0
+  - name: Character
+    uniqueID: 3441716411
     locked: 0
