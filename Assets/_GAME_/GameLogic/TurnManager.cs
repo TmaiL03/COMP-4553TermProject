@@ -39,6 +39,7 @@ public class TurnManager : MonoBehaviour
 
     public TextMeshProUGUI storyUI;
     public float typingSpeed = 0.05f;
+    private bool isTyping = false;
 
     string[] apocalypseStory =
     {
@@ -71,6 +72,27 @@ public class TurnManager : MonoBehaviour
         InfectTile(centerInGrid);
         ExpandToAdjacentTiles(centerInGrid);
         // StartCoroutine(SpreadBlight());
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0) || Input.anyKeyDown)
+        {
+            if (isTyping)
+            {
+                isTyping = false;
+            }
+            else
+            {
+                StartCoroutine(HideStoryPanelAfterDelay(0f));
+
+                if (players[currentPlayerIndex].bookshelves >= 3)
+                {
+                    players[currentPlayerIndex].SaveScores();
+                    StartCoroutine(players[currentPlayerIndex].WaitAndGoToGameOver(0f));
+                }
+            }
+        }
     }
 
     void InitializeTileLists() {
@@ -294,16 +316,24 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator DisplayStory(string storyText)
     {
+        isTyping = true;
         storyUI.text = "";
         storyPanel.SetActive(true);
 
         
         foreach (char letter in storyText.ToCharArray())
         {
+            if (!isTyping)
+            {
+                storyUI.text = storyText;
+                break;
+            }
+
             storyUI.text += letter;
             yield return new WaitForSeconds(typingSpeed);
-        }        
+        }
 
+        isTyping = false;
         StartCoroutine(HideStoryPanelAfterDelay(2f));
     }
 

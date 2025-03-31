@@ -65,7 +65,7 @@ public class Player_Controller : MonoBehaviour
         controls.Disable();
     }
 
-    // Enables and disables player controls for tunr based control
+    // Enables and disables player controls for turn based control
     public void SetInputState(bool isActive) {
         if (isActive)
         {

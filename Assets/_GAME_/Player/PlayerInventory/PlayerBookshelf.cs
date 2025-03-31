@@ -32,7 +32,7 @@ public class PlayerBookshelf : MonoBehaviour
 
         Debug.Log("Player_Controller found in wood: " + player.name);
         playerController = player;
-        UpdateBookshelfUI(playerController.food);
+        UpdateBookshelfUI(playerController.bookshelves);
         // Now safely reference player and continue execution
     }
 
